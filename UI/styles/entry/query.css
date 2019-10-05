@@ -35,6 +35,9 @@
 		padding-left: 36px;
 		padding-right: 15px;
 	}
+	.title {
+		font-size: 80%;
+	}
 	.wrapper a{
 		font-size: 140%;
 		width: 32px;
