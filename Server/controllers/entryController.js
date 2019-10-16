@@ -61,4 +61,11 @@ export default class EntryController {
     send.successful(204, 'entry successful deleted', null);
     return send.send(res);
   }
+
+  static getAllEntry(req, res) {
+    const send = new Send();
+    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
+    send.successful(200, null, userEntries);
+    return send.send(res);
+  }
 }

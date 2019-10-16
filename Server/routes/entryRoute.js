@@ -7,7 +7,8 @@ const router = express.Router();
 router.use(protect);
 router
   .route('/')
-  .post(EntryController.createEntry);
+  .post(EntryController.createEntry)
+  .get(EntryController.getAllEntry);
 router
   .route('/:id')
   .patch(EntryController.updateEntry)

@@ -213,6 +213,16 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should get all entries', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data.length).to.equal(1);
+          done();
+        });
+    });
   });
   describe('when the user is not signup or given a wrong token', () => {
     it('should not allow user without token to access entry routes', (done) => {
