@@ -120,3 +120,79 @@ describe('users can signup', () => {
       });
   });
 });
+describe('users can signin', () => {
+  it('it should signin users with correct email and password', (done) => {
+    const user = {
+      email: 'john45@gmail.com',
+      password: 'password12345'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(200);
+        expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('token');
+        done();
+      });
+  });
+  it('it should not signin users with an incorrect email', (done) => {
+    const user = {
+      email: 'john4555@gmail.com',
+      password: 'password12345'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        expect(res.body.message).to.equal('incorrect email or password');
+        done();
+      });
+  });
+  it('it should not signin users with a wrong password', (done) => {
+    const user = {
+      email: 'john45@gmail.com',
+      password: 'password123'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(401);
+        expect(res.body.message).to.equal('incorrect email or password');
+        done();
+      });
+  });
+  it('it should not signin users with a unvalidated  password', (done) => {
+    const user = {
+      email: 'john45@gmail.com',
+      password: 3
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+  it('it should not signin users with a unvalidated  password', (done) => {
+    const user = {
+      email: 'john45',
+      password: 'paswedwdw'
+    };
+    chai
+      .request(app)
+      .post('/api/v1/users/signin')
+      .send(user)
+      .end((err, res) => {
+        expect(res.status).to.equal(400);
+        done();
+      });
+  });
+});
