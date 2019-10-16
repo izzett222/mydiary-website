@@ -8,4 +8,19 @@ export default class EntryValidator {
     });
     return schema.validate(entry);
   }
+
+  static update(entry) {
+    let schema = Joi.object().keys({});
+    if (entry.title) {
+      schema = schema.keys({
+        title: Joi.string().required().min(3).max(40)
+      });
+    }
+    if (entry.discription) {
+      schema = schema.keys({
+        discription: Joi.string().required().min(3)
+      });
+    }
+    return schema.validate(entry);
+  }
 }

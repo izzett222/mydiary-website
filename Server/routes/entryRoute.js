@@ -8,5 +8,8 @@ router.use(protect);
 router
   .route('/')
   .post(EntryController.createEntry);
+router
+  .route('/:id')
+  .patch(EntryController.updateEntry);
 
 export default router;
