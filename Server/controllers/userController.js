@@ -34,4 +34,31 @@ export default class UserController {
       return send.send(res);
     }
   }
+
+  static async login(req, res) {
+    const { email, password } = req.body;
+    const send = new Send();
+    const { error } = UserValidator.login(req.body);
+    if (error) {
+      send.error(400, error);
+      return send.send(res);
+    }
+    const user = users.find((el) => el.email === email);
+    if (!user) {
+      send.error(404, new Error('incorrect email or password'));
+      return send.send(res);
+    }
+    try {
+      if (!await bcrypt.compare(password, user.password)) throw new Error('incorrect email or password');
+      send.successful(200, 'User logged in successfully', { token: jwt.sign({ user_id: user.user_id }, process.env.JWT_KEY) });
+      return send.send(res);
+    } catch (err) {
+      if (err.message === 'incorrect email or password') {
+        send.error(401, err);
+        return send.send(res);
+      }
+      send.error(500, err);
+      return send.send(res);
+    }
+  }
 }
