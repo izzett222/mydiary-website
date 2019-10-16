@@ -68,4 +68,16 @@ export default class EntryController {
     send.successful(200, null, userEntries);
     return send.send(res);
   }
+
+  static getAnEntry(req, res) {
+    const send = new Send();
+    const entry = entries.find((el) => el.id === req.params.id * 1);
+    if (!entry) {
+      const errorID = new Error('entry not found');
+      send.error(404, errorID);
+      return send.send(res);
+    }
+    send.successful(200, null, entry);
+    return send.send(res);
+  }
 }

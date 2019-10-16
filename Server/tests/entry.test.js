@@ -223,6 +223,24 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should get an entry', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries/2')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          done();
+        });
+    });
+    it('it should not get an entry with an invalid id', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries/8000')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
   });
   describe('when the user is not signup or given a wrong token', () => {
     it('should not allow user without token to access entry routes', (done) => {
