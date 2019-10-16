@@ -97,6 +97,104 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should modify an entry with all data given', (done) => {
+      const modify = {
+        title: 'ready',
+        discription: 'ohhh this is beatiful'
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          if (modify.title) {
+            expect(res.body.data).to.include({
+              title: modify.title
+            });
+          }
+          if (modify.discription) {
+            expect(res.body.data).to.include({
+              discription: modify.discription
+            });
+          }
+          done();
+        });
+    });
+    it('it should modify an entry with partial data given(title)', (done) => {
+      const modify = {
+        title: 'ready'
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          if (modify.title) {
+            expect(res.body.data).to.include({
+              title: modify.title
+            });
+          }
+          if (modify.discription) {
+            expect(res.body.data).to.include({
+              discription: modify.discription
+            });
+          }
+          done();
+        });
+    });
+    it('it should modify an entry with partial data given(discription)', (done) => {
+      const modify = {
+        discription: 'ohhh this is beatiful'
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          if (modify.title) {
+            expect(res.body.data).to.include({
+              title: modify.title
+            });
+          }
+          if (modify.discription) {
+            expect(res.body.data).to.include({
+              discription: modify.discription
+            });
+          }
+          done();
+        });
+    });
+    it('it should not modify an entry with invalid request', (done) => {
+      const modify = {
+        title: 're',
+        discription: 'ohhh this is beatif'
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          done();
+        });
+    });
+    it('it should not modify an entry which does not exits', (done) => {
+      const modify = {
+        title: 'readyg',
+        discription: 'ohhh this is beatif'
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/8000')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
   });
   describe('when the user is not signup or given a wrong token', () => {
     it('should not allow user without token to access entry routes', (done) => {

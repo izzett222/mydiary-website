@@ -24,4 +24,28 @@ export default class EntryController {
     send.successful(201, 'entry successfully created', entry);
     return send.send(res);
   }
+
+  static updateEntry(req, res) {
+    const send = new Send();
+    const { error } = EntryValidator.update(req.body);
+    if (error) {
+      send.error(400, error);
+      return send.send(res);
+    }
+    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
+    const entry = userEntries.find((el) => el.id === req.params.id * 1);
+    if (!entry) {
+      const errorID = new Error('entry not found');
+      send.error(404, errorID);
+      return send.send(res);
+    }
+    if (req.body.title) {
+      entry.title = req.body.title;
+    }
+    if (req.body.discription) {
+      entry.discription = req.body.discription;
+    }
+    send.successful(200, 'entry successfully edited', entry);
+    return send.send(res);
+  }
 }
