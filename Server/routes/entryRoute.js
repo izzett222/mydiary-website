@@ -10,6 +10,7 @@ router
   .post(EntryController.createEntry);
 router
   .route('/:id')
-  .patch(EntryController.updateEntry);
+  .patch(EntryController.updateEntry)
+  .delete(EntryController.deleteEntry);
 
 export default router;
