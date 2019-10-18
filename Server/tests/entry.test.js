@@ -30,7 +30,7 @@ describe('entry endpoints testing', () => {
     it('it should create a entry', (done) => {
       const entry = {
         title: 'wow',
-        discription: 'this is working'
+        description: 'this is working'
       };
       chai
         .request(app)
@@ -41,7 +41,7 @@ describe('entry endpoints testing', () => {
           expect(res.status).to.equal(201);
           expect(res.body.data).to.include({
             title: entry.title,
-            discription: entry.discription
+            description: entry.description
           });
           done();
         });
@@ -49,7 +49,7 @@ describe('entry endpoints testing', () => {
     it('it should create another entry', (done) => {
       const entry = {
         title: 'wow again',
-        discription: 'this is working again'
+        description: 'this is working again'
       };
       chai
         .request(app)
@@ -60,7 +60,7 @@ describe('entry endpoints testing', () => {
           expect(res.status).to.equal(201);
           expect(res.body.data).to.include({
             title: entry.title,
-            discription: entry.discription
+            description: entry.description
           });
           expect(res.body.data.id).to.equal(2);
           done();
@@ -70,7 +70,7 @@ describe('entry endpoints testing', () => {
     it('it should not create a entry with invalid data', (done) => {
       const entry = {
         title: 'w',
-        discription: 'this is working'
+        description: 'this is working'
       };
       chai
         .request(app)
@@ -85,7 +85,7 @@ describe('entry endpoints testing', () => {
     it('it should not create a entry with invalid data', (done) => {
       const entry = {
         title: 'wdsff',
-        discription: 't'
+        description: 't'
       };
       chai
         .request(app)
@@ -100,7 +100,7 @@ describe('entry endpoints testing', () => {
     it('it should modify an entry with all data given', (done) => {
       const modify = {
         title: 'ready',
-        discription: 'ohhh this is beatiful'
+        description: 'ohhh this is beatiful'
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
@@ -113,9 +113,9 @@ describe('entry endpoints testing', () => {
               title: modify.title
             });
           }
-          if (modify.discription) {
+          if (modify.description) {
             expect(res.body.data).to.include({
-              discription: modify.discription
+              description: modify.description
             });
           }
           done();
@@ -136,17 +136,17 @@ describe('entry endpoints testing', () => {
               title: modify.title
             });
           }
-          if (modify.discription) {
+          if (modify.description) {
             expect(res.body.data).to.include({
-              discription: modify.discription
+              description: modify.description
             });
           }
           done();
         });
     });
-    it('it should modify an entry with partial data given(discription)', (done) => {
+    it('it should modify an entry with partial data given(description)', (done) => {
       const modify = {
-        discription: 'ohhh this is beatiful'
+        description: 'ohhh this is beatiful'
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
@@ -159,9 +159,9 @@ describe('entry endpoints testing', () => {
               title: modify.title
             });
           }
-          if (modify.discription) {
+          if (modify.description) {
             expect(res.body.data).to.include({
-              discription: modify.discription
+              description: modify.description
             });
           }
           done();
@@ -170,7 +170,7 @@ describe('entry endpoints testing', () => {
     it('it should not modify an entry with invalid request', (done) => {
       const modify = {
         title: 're',
-        discription: 'ohhh this is beatif'
+        description: 'ohhh this is beatif'
       };
       chai.request(app)
         .patch('/api/v1/entries/1')
@@ -184,7 +184,7 @@ describe('entry endpoints testing', () => {
     it('it should not modify an entry which does not exits', (done) => {
       const modify = {
         title: 'readyg',
-        discription: 'ohhh this is beatif'
+        description: 'ohhh this is beatif'
       };
       chai.request(app)
         .patch('/api/v1/entries/8000')
@@ -255,7 +255,7 @@ describe('entry endpoints testing', () => {
     it('should not allow user without token to access entry routes', (done) => {
       const entry = {
         title: 'wow',
-        discription: 'this is working'
+        description: 'this is working'
       };
       chai
         .request(app)
@@ -271,7 +271,7 @@ describe('entry endpoints testing', () => {
       const token = jwt.sign({ user_id: id }, process.env.JWT_KEY);
       const entry = {
         title: 'wow',
-        discription: 'this is working'
+        description: 'this is working'
       };
       chai
         .request(app)
