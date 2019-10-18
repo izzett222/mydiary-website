@@ -27,16 +27,10 @@ export default class EntryController {
 
   static updateEntry(req, res) {
     const send = new Send();
+    const { entry } = req;
     const { error } = EntryValidator.update(req.body);
     if (error) {
       send.error(400, error);
-      return send.send(res);
-    }
-    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
-    const entry = userEntries.find((el) => el.id === req.params.id * 1);
-    if (!entry) {
-      const errorID = new Error('entry not found');
-      send.error(404, errorID);
       return send.send(res);
     }
     if (req.body.title) {
@@ -51,12 +45,7 @@ export default class EntryController {
 
   static deleteEntry(req, res) {
     const send = new Send();
-    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
-    const entry = userEntries.find((el) => el.id === req.params.id * 1);
-    if (!entry) {
-      send.error(404, 'entry not found');
-      return send.send(res);
-    }
+    const { entry } = req;
     entries.splice(entries.indexOf(entry), 1);
     send.successful(204, 'entry successful deleted', null);
     return send.send(res);
@@ -71,12 +60,7 @@ export default class EntryController {
 
   static getAnEntry(req, res) {
     const send = new Send();
-    const entry = entries.find((el) => el.id === req.params.id * 1);
-    if (!entry) {
-      const errorID = new Error('entry not found');
-      send.error(404, errorID);
-      return send.send(res);
-    }
+    const { entry } = req;
     send.successful(200, null, entry);
     return send.send(res);
   }

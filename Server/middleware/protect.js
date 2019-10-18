@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import users from '../data/userData';
-import Send from './send';
+import Send from '../helpers/send';
 
 dotenv.config();
 const protect = async (req, res, next) => {
