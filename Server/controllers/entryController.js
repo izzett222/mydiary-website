@@ -15,7 +15,7 @@ export default class EntryController {
       title: req.body.title,
       createdOn: new Date().toDateString(),
       user_id: req.user.user_id,
-      discription: req.body.discription
+      description: req.body.description
     };
     if (entries.length > 0) {
       entry.id = entries[entries.length - 1].id + 1;
@@ -36,8 +36,8 @@ export default class EntryController {
     if (req.body.title) {
       entry.title = req.body.title;
     }
-    if (req.body.discription) {
-      entry.discription = req.body.discription;
+    if (req.body.description) {
+      entry.description = req.body.description;
     }
     send.successful(200, 'entry successfully edited', entry);
     return send.send(res);
