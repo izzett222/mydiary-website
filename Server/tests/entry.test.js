@@ -232,12 +232,21 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    it('it should not get an entry with an invalid id', (done) => {
+    it('it should not get an entry which does not exist', (done) => {
       chai.request(app)
         .get('/api/v1/entries/8000')
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
+          done();
+        });
+    });
+    it('it should not get an entry with a non-numeric id', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries/dd34s')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
           done();
         });
     });
