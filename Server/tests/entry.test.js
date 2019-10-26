@@ -285,3 +285,14 @@ describe('entry endpoints testing', () => {
     });
   });
 });
+describe('u can not access a route that does not exit', () => {
+  it('should return an error message', (done) => {
+    chai
+      .request(app)
+      .get('/api/v1/entriess')
+      .end((err, res) => {
+        expect(res.status).to.equal(404);
+        done();
+      });
+  });
+});
