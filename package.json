@@ -8,8 +8,7 @@
     "test": "nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
     "test:remote": "nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
     "dev": "NODE_ENV=development nodemon --exec babel-node ./Server/index.js",
-    "prod": "NODE_ENV=production nodemon --exec babel-node ./Server/index.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "prod": "NODE_ENV=production nodemon --exec babel-node ./Server/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +23,7 @@
   "homepage": "https://github.com/izzett222/mydiary-website#readme",
   "dependencies": {
     "@hapi/joi": "^16.1.7",
+    "babel-node": "0.0.1-security",
     "bcrypt": "^3.0.6",
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
