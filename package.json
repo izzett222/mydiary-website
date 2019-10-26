@@ -9,7 +9,6 @@
     "test:remote": "nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
     "dev": "NODE_ENV=development nodemon --exec babel-node ./Server/index.js",
     "prod": "NODE_ENV=production nodemon --exec babel-node ./Server/index.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
