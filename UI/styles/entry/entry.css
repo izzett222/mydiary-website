@@ -95,7 +95,7 @@ label {
 	font-weight: 400;
 	align-self: center;
 }
-input[type="submit"] {
+.btn {
 	box-shadow: inset 0px 1px 0px 0px #7a8eb9;
 	background: linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
 	background-color: #637aad;
@@ -108,12 +108,60 @@ input[type="submit"] {
 	font-weight: bold;
 	padding: 6px 15px;
 	margin-top: 5px;
+	outline: none;
  }
- input[type="submit"]:first-of-type {
+ .btn:first-of-type {
 	margin-right: 10px;
 }
-input[type="submit"]:hover {
+.btn:hover {
 	background: linear-gradient(to bottom, #5972a7 5%, #637aad 100%);	
 	background-color: #5972a7;
 }
- 
+/*------------------------------*/
+/*FORM*/
+/*------------------------------*/
+.hidden {
+	display: none;
+}
+.popup {
+ 	position: absolute;
+ 	border: 1px solid rgba(0,0,0,0.1);
+ 	width: 400px;
+ 	padding: 20px 20px;
+ 	top: 35%;
+ 	left: 20%;
+ 	background-color: #555;
+ 	color: #fff;
+ 	border-radius: 3px;
+}
+.popup p {
+ 	font-size: 95%;
+ 	margin-bottom: 35px;
+}
+.popup button:first-of-type {
+ 	margin-left: 100px;
+ 	cursor: pointer;
+ 	background: #FC491A;
+ 	border: none;
+ 	box-shadow: none;
+ }
+.popup button:first-of-type:hover {
+ 	cursor: pointer;
+ 	background: #CF2D02;
+ }
+.popup button:last-of-type {
+ 	height:35px;
+ 	font-size: 95%;
+ 	color: #555;
+ 	padding: 0 15px;
+ 	border:0;
+	box-shadow: 0;
+	outline: none;
+	background: #fff;
+	transition: background 0.2s;
+ }
+.popup button:last-of-type:hover {
+	background: #cfcfcf;
+}
+
+
