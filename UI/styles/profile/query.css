@@ -76,6 +76,24 @@
     footer ul li {
     margin-right: 20px;
     }
+    .details {
+    margin-top: 10px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 2fr;
+    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-areas: "name"
+                         "email"
+                         "reminder"
+                         "entries";
+	}
+	.details .entries {
+		position: static;
+		grid-area: entries;
+		right: 0;
+		top: 0;
+		margin-bottom: 20px;
+	}
 }
 @media only screen and (max-width:378px) {
 	.entry {

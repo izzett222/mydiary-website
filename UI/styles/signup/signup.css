@@ -102,6 +102,25 @@ label span {
 	display: inline-block;
 	vertical-align: bottom;
 }
+.btn,
+input[type=submit] {
+	display: inline-block;
+    padding:10px 40px;
+    font-weight: 300;
+    border-radius: 4px;
+    text-align: center;
+    text-transform: capitalize;
+    border: 1px solid #B5A419;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    background-color: #B5A419;
+    color: #fff;
+}
+.btn:hover,
+input[type=submit]:hover {
+    background-color: #948404;
+    color: #fff;
+    border: 1px solid #948404;
+}
 input[type="submit"] {
 	margin-top: 20px;
     font-family: inherit;
@@ -109,22 +128,30 @@ input[type="submit"] {
     vertical-align: top;
     padding: 6px 16px 6px 16px;
     border: 1px solid #a2a2a2;
-    color: #444;
+    color: #fff;
     cursor: pointer;
     border-radius: 5px;
-    background: linear-gradient(#fff, #e5e5e5);
+    background-color: #B5A419;
     width: 100px;
-	transition: background 0.2s linear;
+	transition: background-color 0.2s linear;
 }
 input[type="submit"]:hover {
-    background: #e5e5e5;
+    background-color: #948404;
 }
 /*------------------------------*/
 /*footer*/
 /*------------------------------*/
+footer {
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+}
 .footer {
 	width: 250px;
 	margin: 0 auto;
+}
+footer ul {
+	padding-left: 15px;
 }
 footer ul li {
 	display: inline-block;

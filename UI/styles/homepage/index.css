@@ -58,7 +58,7 @@ a {
     transition: color 0.2s, border-bottom 0.2s;
 }
 a:hover {
-    color:#D6C537;
+    color:#8D7E04;
 }
 /*----- BUTTONS------*/
 .btn,
@@ -222,22 +222,6 @@ header ul li a:hover {
     color: #B5A419;
 	padding-right: 5px;
 	padding-left: 5px;
-}
-.desktop #sign-menu a {
-    background: #B5A419;
-    padding: 3px 12px;
-    color: #fff;
-    border: 1px solid #948404;
-    border-radius: 5px;
-    transition: background 0.2s;
-}
-.desktop #sign-menu a:hover {
-    background: #B5A419;
-    padding: 3px 12px;
-    color: #fff;
-    border: 1px solid #B5A419;
-    border-radius: 5px;
-    background: #948404;
 }
 /*-----------------------*/
 /*banner*/

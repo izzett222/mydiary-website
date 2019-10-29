@@ -17,12 +17,19 @@ html,body {
 /*------------------------------*/
 /*HEADER*/
 /*------------------------------*/
-.logo  {
+.logo {
+	text-align: center;
+ 	margin-top: 4%;
+}
+.logo a  {
     font-family: 'Lobster', cursive;
     font-size: 190%;
     color: #B5A419;
-    text-align: center;
- 	margin-top: 4%;
+ 	text-decoration: none;
+ 	transition: color 0.2s;
+}
+.logo a:hover {
+	color: #8D7E04;
 }
 /*------------------------------*/
 /*form*/
@@ -52,7 +59,7 @@ input {
 form a:link,
 form a:visited {
 	display: inline-block;
-	color: #25728a;
+	color: #25728b;
 	text-decoration: none;
 	font-size: 80%;
 	margin-top: 4px;
@@ -61,34 +68,44 @@ form a:visited {
 form a:active,
 form a:hover {
 	display: inline-block;
-	padding: 2px;
+	color: black;
 }
 form label span {
 	display: inline-block;
 	margin-bottom: 8px;
 }
-input[type="submit"]:link,
-input[type="submit"]:visited {
-    vertical-align: top;
-    padding: 6px 16px 6px 16px;
-    border: 1px solid #a2a2a2;
-    color: #444;
-    cursor: pointer;
-    border-radius: 5px;
-    background: linear-gradient(#fff, #e5e5e5);
-    position: relative;
+input[type="submit"] {
+	margin-top: 6px;
+	text-transform: capitalize;
+    border: 1px solid #B5A419;
+    transition: background-color 0.2s, border 0.2s, color 0.2s;
+    background-color: #B5A419;
+    color: #fDFDFD;
 }
-input[type="submit"]:hover,
-input[type="submit"]:active {
-    background: #e5e5e5;
-    transition: background 0.05s linear;
+input[type="submit"]:hover {
+    background-color: #948404;
+    color: #fff;
+    border: 1px solid #948404;
+}
+.signup-sec {
+	margin-top: 10px;
+	margin-left: 108px;
+	font-size: 80%;
 }
 /*------------------------------*/
 /*footer*/
 /*------------------------------*/
+footer {
+	position: fixed;
+	bottom: 20px;
+	width: 100%;
+}
 .footer {
 	width: 250px;
 	margin: 0 auto;
+}
+footer ul {
+	padding-left: 15px;
 }
 footer ul li {
 	display: inline-block;
