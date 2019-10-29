@@ -186,23 +186,38 @@ header ul li a:active {
     background-size: cover;
 }
 .details {
-    margin-top: 15px;
+    margin-top: 10px;
+    display: grid;
+    position: relative;
+    grid-template-columns: 2fr;
+    grid-template-rows: 1fr 1fr 2fr;
+    grid-template-areas: "name"
+                         "email"
+                         "reminder";
+}
+.details .name {
+    grid-area: name;
+    font-size: 160%;
+    border-left: 3px solid rgba(0,0,0,0.4);
+    padding-left: 3px;
+    font-weight: 400;
+}
+.details .email {
+    grid-area: email
+    margin-top: 8px;
+    font-size: 110%;
+    align-self: center;
+}
+.details form {
+    grid-area: reminder;
+}
+.details .entries {
+    position: absolute;
+    right: 6px;
+    top: -14px;
 }
 .icon-small {
     margin-right: 6px;
-}
-.details p:first-of-type {
-    font-size: 150%;
-    border-left: 3px solid rgba(0,0,0,0.4);
-    padding-left: 3px;
-    margin-bottom: 30px;
-    font-weight: 400;
-}
-.details p {
-    margin-bottom: 1px;
-}
-.details p:nth-child(2) {
-    margin-bottom: 8px;
 }
 .details p:last-of-type {
     margin-top: 10px;
@@ -218,22 +233,33 @@ header ul li a:active {
 }
 form label span {
     display: inline-block;
-    margin-bottom: 4px;
+    font-size: 105%;
 }
 form input[type="text"] {
-    width: 40px;
+    width: 60px;
+    height: 30px;
     display: inline-block;
+    }
+select {
+    height: 30px;
+    font-size: 85%;
 }
 form input[type="submit"] {
-    padding: 0 10px;
-}
-input[type="submit"] {
-    color: #444;
+    font-size: 90%;
+    height: 30px;
+    padding: 0 25px;
+    padding-top: 3px;
     cursor: pointer;
-    background:#fff;
+    color: #fcfcfc;
+    border: none;
+    position: relative;
+    top: 2px;
+    margin-left: 3px;
+    background-color: #B5A419;
+    border-radius: 4px;
 }
-input[type="submit"]:hover {
-    background: #e5e5e5;
+form input[type="submit"]:hover {
+    background-color: #948404;
     transition: background 0.05s linear;
 }
 /*-----------------------*/
