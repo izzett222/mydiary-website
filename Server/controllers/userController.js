@@ -27,7 +27,11 @@ export default class UserController {
       };
       if (users.length > 0) newUser.user_id = users[users.length - 1].user_id + 1;
       users.push(newUser);
-      send.successful(201, 'user created successfully', { token: jwt.sign({ user_id: newUser.user_id }, process.env.JWT_KEY) });
+      const { ...sendUser } = newUser;
+      delete sendUser.password;
+      send.successful(201, 'user created successfully', {
+        token: jwt.sign({ user_id: newUser.user_id }, process.env.JWT_KEY), user: sendUser
+      });
       return send.send(res);
     } catch (err) {
       send.error(500, err);
@@ -50,7 +54,11 @@ export default class UserController {
     }
     try {
       if (!await bcrypt.compare(password, user.password)) throw new Error('incorrect email or password');
-      send.successful(200, 'User logged in successfully', { token: jwt.sign({ user_id: user.user_id }, process.env.JWT_KEY) });
+      const { ...sendUser } = user;
+      delete sendUser.password;
+      send.successful(200, 'User logged in successfully', {
+        token: jwt.sign({ user_id: user.user_id }, process.env.JWT_KEY), user: sendUser
+      });
       return send.send(res);
     } catch (err) {
       if (err.message === 'incorrect email or password') {

@@ -68,7 +68,7 @@ describe('users can signup', () => {
         done();
       });
   });
-  it('it should sign up new users(first on the server', (done) => {
+  it('it should sign up new users(first on the server)', (done) => {
     const newUser = {
       firstName: 'John',
       lastName: 'Ishimwe',
@@ -82,6 +82,12 @@ describe('users can signup', () => {
       .end((err, res) => {
         expect(res.status).to.equal(201);
         expect(res.body).to.have.property('data');
+        expect(res.body.data).to.have.property('user');
+        expect(res.body.data.user).to.have.property('user_id');
+        expect(res.body.data.user).to.have.property('firstName');
+        expect(res.body.data.user).to.have.property('lastName');
+        expect(res.body.data.user).to.have.property('email');
+        expect(res.body.data.user).to.not.have.property('password');
         done();
       });
   });
@@ -134,6 +140,12 @@ describe('users can signin', () => {
         expect(res.status).to.equal(200);
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('token');
+        expect(res.body.data).to.have.property('user');
+        expect(res.body.data.user).to.have.property('user_id');
+        expect(res.body.data.user).to.have.property('firstName');
+        expect(res.body.data.user).to.have.property('lastName');
+        expect(res.body.data.user).to.have.property('email');
+        expect(res.body.data.user).to.not.have.property('password');
         done();
       });
   });
