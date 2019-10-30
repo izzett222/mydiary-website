@@ -11,6 +11,7 @@ dotenv.config();
 describe('entry endpoints testing', () => {
   describe('when the user has signed up and given a valid token', () => {
     let token;
+    let slug;
     before((done) => {
       const loggedUser = {
         email: 'john45@gmail.com',
@@ -57,11 +58,13 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .send(entry)
         .end((err, res) => {
+          slug = res.body.data.slug;
           expect(res.status).to.equal(201);
           expect(res.body.data).to.include({
             title: entry.title,
             description: entry.description
           });
+          expect(res.body.data).to.have.property('slug');
           expect(res.body.data.id).to.equal(2);
           done();
         });
@@ -247,6 +250,32 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(400);
+          done();
+        });
+    });
+    it('should get an entry when a title slug is given', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/entries/title/${slug}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.have.property('data');
+          expect(res.body.data).to.have.property('title');
+          expect(res.body.data).to.have.property('description');
+          expect(res.body.data).to.have.property('createdOn');
+          expect(res.body.data).to.have.property('slug');
+          expect(res.body.data.slug).to.equal(slug);
+          done();
+        });
+    });
+    it('should get an entry when a title slug is given', (done) => {
+      chai
+        .request(app)
+        .get('/api/v1/entries/title/day-dfewdes')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
           done();
         });
     });

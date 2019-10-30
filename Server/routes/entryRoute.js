@@ -16,5 +16,8 @@ router
   .patch(EntryController.updateEntry)
   .delete(EntryController.deleteEntry)
   .get(EntryController.getAnEntry);
+router
+  .route('/title/:slug')
+  .get(EntryController.getBySlug);
 
 export default router;
