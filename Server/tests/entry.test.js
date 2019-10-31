@@ -28,6 +28,15 @@ describe('entry endpoints testing', () => {
       const userId = users[users.length - 1].user_id;
       token = jwt.sign({ user_id: userId }, process.env.JWT_KEY);
     });
+    it('it should get an entry', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
+    });
     it('it should create a entry', (done) => {
       const entry = {
         title: 'wow',
