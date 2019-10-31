@@ -1,4 +1,5 @@
 import Send from '../helpers/send';
+import slugStr from '../helpers/slug';
 import entries from '../data/entryData';
 import EntryValidator from '../helpers/entryValidators';
 
@@ -10,12 +11,14 @@ export default class EntryController {
       send.error(400, error);
       return send.send(res);
     }
+    const slug = slugStr(req.body.title);
     const entry = {
       id: 1,
-      title: req.body.title,
       createdOn: new Date().toDateString(),
-      user_id: req.user.user_id,
-      description: req.body.description
+      slug,
+      title: req.body.title,
+      description: req.body.description,
+      user_id: req.user.user_id
     };
     if (entries.length > 0) {
       entry.id = entries[entries.length - 1].id + 1;
@@ -63,5 +66,18 @@ export default class EntryController {
     const { entry } = req;
     send.successful(200, null, entry);
     return send.send(res);
+  }
+
+  static getBySlug(req, res) {
+    const send = new Send();
+    const { slug } = req.params;
+    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
+    const entry = userEntries.find((el) => el.slug === slug);
+    if (!entry) {
+      send.error(404, new Error(`entry with slug equal to ${slug}. not found`));
+      return send.send(res);
+    }
+    send.successful(200, null, entry);
+    send.send(res);
   }
 }
