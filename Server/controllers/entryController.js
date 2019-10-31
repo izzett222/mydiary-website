@@ -6,11 +6,6 @@ import EntryValidator from '../helpers/entryValidators';
 export default class EntryController {
   static createEntry(req, res) {
     const send = new Send();
-    const { error } = EntryValidator.create(req.body);
-    if (error) {
-      send.error(400, error);
-      return send.send(res);
-    }
     const slug = slugStr(req.body.title);
     const entry = {
       id: 1,
@@ -31,11 +26,6 @@ export default class EntryController {
   static updateEntry(req, res) {
     const send = new Send();
     const { entry } = req;
-    const { error } = EntryValidator.update(req.body);
-    if (error) {
-      send.error(400, error);
-      return send.send(res);
-    }
     if (req.body.title) {
       entry.title = req.body.title;
     }
