@@ -179,6 +179,21 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should not modify an entry with not data given', (done) => {
+      const modify = {
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.not.have.property('data');         
+          done();
+        });
+    });
     it('it should not modify an entry with invalid request', (done) => {
       const modify = {
         title: 're',

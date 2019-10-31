@@ -13,9 +13,6 @@ export default class Send {
 
   error(statusCode, error) {
     this.statusCode = statusCode;
-    if (error.details) {
-      this.message = error.details[0].message;
-    }
     this.message = error.message;
   }
 
