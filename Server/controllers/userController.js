@@ -1,22 +1,14 @@
 import bcrypt from 'bcrypt';
-import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
 import Send from '../helpers/send';
 import users from '../data/userData';
-import UserValidator from '../helpers/userValidators';
+import tokenHandler from '../helpers/tokenHandler';
 
-dotenv.config();
 export default class UserController {
   static async userSignup(req, res) {
     const send = new Send();
     const {
       firstName, lastName, email, password
     } = req.body;
-    const { error } = UserValidator.signup(req.body);
-    if (error) {
-      send.error(400, error);
-      return send.send(res);
-    }
     if (users.find((el) => el.email === email)) {
       send.error(409, new Error('email already taken'));
       return send.send(res);
@@ -29,9 +21,8 @@ export default class UserController {
       users.push(newUser);
       const { ...sendUser } = newUser;
       delete sendUser.password;
-      send.successful(201, 'user created successfully', {
-        token: jwt.sign({ user_id: newUser.user_id }, process.env.JWT_KEY), user: sendUser
-      });
+      const token = tokenHandler(newUser);
+      send.successful(201, 'user created successfully', { token, user: sendUser });
       return send.send(res);
     } catch (err) {
       send.error(500, err);
@@ -42,11 +33,6 @@ export default class UserController {
   static async login(req, res) {
     const { email, password } = req.body;
     const send = new Send();
-    const { error } = UserValidator.login(req.body);
-    if (error) {
-      send.error(400, error);
-      return send.send(res);
-    }
     const user = users.find((el) => el.email === email);
     if (!user) {
       send.error(404, new Error('incorrect email or password'));
@@ -56,9 +42,8 @@ export default class UserController {
       if (!await bcrypt.compare(password, user.password)) throw new Error('incorrect email or password');
       const { ...sendUser } = user;
       delete sendUser.password;
-      send.successful(200, 'User logged in successfully', {
-        token: jwt.sign({ user_id: user.user_id }, process.env.JWT_KEY), user: sendUser
-      });
+      const token = tokenHandler(user);
+      send.successful(200, 'User logged in successfully', { token, user: sendUser });
       return send.send(res);
     } catch (err) {
       if (err.message === 'incorrect email or password') {
