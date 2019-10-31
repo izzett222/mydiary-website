@@ -57,6 +57,10 @@ export default class EntryController {
   static getAllEntry(req, res) {
     const send = new Send();
     const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
+    if (userEntries.length < 1) {
+      send.error(404, new Error('your diary is empty, no entries found'));
+      return send.send(res);
+    }
     send.successful(200, null, userEntries);
     return send.send(res);
   }
