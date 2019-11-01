@@ -17,6 +17,7 @@ router
   .patch(EntryValidatorMiddleware.update, EntryController.updateEntry)
   .delete(EntryController.deleteEntry)
   .get(EntryController.getAnEntry);
+  
 router
   .route('/slug/:slug')
   .get(EntryController.getBySlug);
