@@ -96,10 +96,10 @@ label {
 	align-self: center;
 }
 .btn {
-	box-shadow: inset 0px 1px 0px 0px #7a8eb9;
-	background: linear-gradient(to bottom, #637aad 5%, #5972a7 100%);
-	background-color: #637aad;
-	border: 1px solid #314179;
+	box-shadow: inset 0px 1px 0px 0px #B5A419;
+	background-color: #B5A419;
+	border: 0;
+	border-radius: 2px;
 	display: inline-block;
 	cursor: pointer;
 	color: #ffffff;
@@ -109,13 +109,13 @@ label {
 	padding: 6px 15px;
 	margin-top: 5px;
 	outline: none;
+	transition: background-color 0.2s;
  }
  .btn:first-of-type {
 	margin-right: 10px;
 }
 .btn:hover {
-	background: linear-gradient(to bottom, #5972a7 5%, #637aad 100%);	
-	background-color: #5972a7;
+	background-color: #948404;
 }
 /*------------------------------*/
 /*FORM*/

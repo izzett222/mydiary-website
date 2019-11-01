@@ -8,6 +8,7 @@ _MyDiary is an online journal where users can pen down their thoughts and feelin
 * [back-end app](mydiary-izzeddin.herokuapp.com)
 * [front-end pages](izzett222.github.io/mydiary-website)
 * [pivotal tracker stories](https://www.pivotaltracker.com/n/projects/2402203)
+* [Postman API documentation](https://documenter.getpostman.com/view/8238232/SVzz2K4k)
 
 ## Features
 
@@ -30,6 +31,7 @@ _MyDiary is an online journal where users can pen down their thoughts and feelin
 | DELETE      | /api/v1/entries/id                                             | Delete an entry                |
 | GET         | /api/v1/entries                                                | View all entries               |
 | GET         | /api/v1/entries/id                                             | View a specific entry          |
+| GET         | /api/v1/entries/slug/:slug                                     | view a specific entry with slug|     
 
 ## Prerequisites
 ### Bank-End

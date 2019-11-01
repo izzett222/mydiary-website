@@ -10,17 +10,10 @@ export default class EntryValidator {
   }
 
   static update(entry) {
-    let schema = Joi.object().keys({});
-    if (entry.title) {
-      schema = schema.keys({
-        title: Joi.string().required().min(3).max(40)
-      });
-    }
-    if (entry.description) {
-      schema = schema.keys({
-        description: Joi.string().required().min(3)
-      });
-    }
+    const schema = Joi.object().keys({
+      title: Joi.string().min(3).max(40),
+      description: Joi.string().min(3)
+    }).or('title', 'description');
     return schema.validate(entry);
   }
 }

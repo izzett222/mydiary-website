@@ -11,6 +11,7 @@ dotenv.config();
 describe('entry endpoints testing', () => {
   describe('when the user has signed up and given a valid token', () => {
     let token;
+    let slug;
     before((done) => {
       const loggedUser = {
         email: 'john45@gmail.com',
@@ -26,6 +27,15 @@ describe('entry endpoints testing', () => {
         });
       const userId = users[users.length - 1].user_id;
       token = jwt.sign({ user_id: userId }, process.env.JWT_KEY);
+    });
+    it('it should get an entry', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          done();
+        });
     });
     it('it should create a entry', (done) => {
       const entry = {
@@ -57,11 +67,13 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .send(entry)
         .end((err, res) => {
+          slug = res.body.data.slug;
           expect(res.status).to.equal(201);
           expect(res.body.data).to.include({
             title: entry.title,
             description: entry.description
           });
+          expect(res.body.data).to.have.property('slug');
           expect(res.body.data.id).to.equal(2);
           done();
         });
@@ -167,6 +179,21 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should not modify an entry with not data given', (done) => {
+      const modify = {
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.not.have.property('data');         
+          done();
+        });
+    });
     it('it should not modify an entry with invalid request', (done) => {
       const modify = {
         title: 're',
@@ -247,6 +274,34 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(400);
+          done();
+        });
+    });
+    it('should get an entry when a title slug is given', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/entries/slug/${slug}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.have.property('data');
+          expect(res.body.data).to.have.property('title');
+          expect(res.body.data).to.have.property('description');
+          expect(res.body.data).to.have.property('createdOn');
+          expect(res.body.data).to.have.property('slug');
+          expect(res.body.data.slug).to.equal(slug);
+          done();
+        });
+    });
+    it('should get an entry when a title slug is given', (done) => {
+      const noSlug = 'day-dfewdes';
+      chai
+        .request(app)
+        .get(`/api/v1/entries/slug/${noSlug}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
           done();
         });
     });
