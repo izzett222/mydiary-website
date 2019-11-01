@@ -280,7 +280,7 @@ describe('entry endpoints testing', () => {
     it('should get an entry when a title slug is given', (done) => {
       chai
         .request(app)
-        .get(`/api/v1/entries/title/${slug}`)
+        .get(`/api/v1/entries/slug/${slug}`)
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
@@ -294,12 +294,14 @@ describe('entry endpoints testing', () => {
         });
     });
     it('should get an entry when a title slug is given', (done) => {
+      const noSlug = 'day-dfewdes';
       chai
         .request(app)
-        .get('/api/v1/entries/title/day-dfewdes')
+        .get(`/api/v1/entries/slug/${noSlug}`)
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(404);
+          expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
           done();
         });
     });

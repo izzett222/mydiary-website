@@ -17,8 +17,9 @@ router
   .patch(EntryValidatorMiddleware.update, EntryController.updateEntry)
   .delete(EntryController.deleteEntry)
   .get(EntryController.getAnEntry);
+  
 router
-  .route('/title/:slug')
+  .route('/slug/:slug')
   .get(EntryController.getBySlug);
 
 export default router;
