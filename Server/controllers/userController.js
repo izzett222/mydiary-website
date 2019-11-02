@@ -40,6 +40,7 @@ export default class UserController {
       const { ...sendUser } = user;
       delete sendUser.password;
       const token = tokenHandler(user);
+
       send.successful(200, 'User logged in successfully', { token, user: sendUser });
       return send.send(res);
     } catch (err) {
