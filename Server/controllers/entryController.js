@@ -1,18 +1,17 @@
-import Send from '../helpers/send';
+import send from '../helpers/send';
 import slugStr from '../helpers/slug';
 import entries from '../data/entryData';
 import EntryValidator from '../helpers/entryValidators';
 
 export default class EntryController {
   static createEntry(req, res) {
-    const send = new Send();
-    const slug = slugStr(req.body.title);
+    const slug = slugStr(req.body.title.trim());
     const entry = {
       id: 1,
       createdOn: new Date().toDateString(),
       slug,
-      title: req.body.title,
-      description: req.body.description,
+      title: req.body.title.trim(),
+      description: req.body.description.trim(),
       user_id: req.user.user_id
     };
     if (entries.length > 0) {
@@ -24,20 +23,18 @@ export default class EntryController {
   }
 
   static updateEntry(req, res) {
-    const send = new Send();
     const { entry } = req;
     if (req.body.title) {
-      entry.title = req.body.title;
+      entry.title = req.body.title.trim();
     }
     if (req.body.description) {
-      entry.description = req.body.description;
+      entry.description = req.body.description.trim();
     }
     send.successful(200, 'entry successfully edited', entry);
     return send.send(res);
   }
 
   static deleteEntry(req, res) {
-    const send = new Send();
     const { entry } = req;
     entries.splice(entries.indexOf(entry), 1);
     send.successful(204, 'entry successful deleted', null);
@@ -45,7 +42,6 @@ export default class EntryController {
   }
 
   static getAllEntry(req, res) {
-    const send = new Send();
     const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
     if (userEntries.length < 1) {
       send.error(404, new Error('your diary is empty, no entries found'));
@@ -56,14 +52,12 @@ export default class EntryController {
   }
 
   static getAnEntry(req, res) {
-    const send = new Send();
     const { entry } = req;
     send.successful(200, null, entry);
     return send.send(res);
   }
 
   static getBySlug(req, res) {
-    const send = new Send();
     const { slug } = req.params;
     const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
     const entry = userEntries.find((el) => el.slug === slug);

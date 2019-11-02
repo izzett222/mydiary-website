@@ -1,6 +1,6 @@
 import express from 'express';
 import EntryController from '../controllers/entryController';
-import users from '../data/userData';
+import { users } from '../data/userData';
 import protect from '../middleware/protect';
 import EntryValidatorMiddleware from '../middleware/entryVal';
 import idhandler from '../middleware/idHandler';
@@ -17,7 +17,6 @@ router
   .patch(EntryValidatorMiddleware.update, EntryController.updateEntry)
   .delete(EntryController.deleteEntry)
   .get(EntryController.getAnEntry);
-  
 router
   .route('/slug/:slug')
   .get(EntryController.getBySlug);

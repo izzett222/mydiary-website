@@ -1,8 +1,7 @@
 import entries from '../data/entryData';
-import Send from '../helpers/send';
+import send from '../helpers/send';
 
 const idHandler = (req, res, next) => {
-  const send = new Send();
   const regex = /^\d+$/;
   console.log(req.params.id);
   const truth = regex.test(req.params.id);

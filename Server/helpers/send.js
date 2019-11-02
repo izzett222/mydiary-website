@@ -1,4 +1,4 @@
-export default class Send {
+class Send {
   constructor() {
     this.statusCode = null;
     this.message = null;
@@ -14,6 +14,7 @@ export default class Send {
   error(statusCode, error) {
     this.statusCode = statusCode;
     this.message = error.message;
+    this.data = null;
   }
 
   send(res) {
@@ -31,3 +32,4 @@ export default class Send {
     return res.status(this.statusCode).json(result);
   }
 }
+export default new Send();

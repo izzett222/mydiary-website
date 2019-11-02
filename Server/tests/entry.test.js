@@ -3,7 +3,7 @@ import chaiHttp from 'chai-http';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import app from '../app';
-import users from '../data/userData';
+import { users } from '../data/userData';
 
 const { expect } = chai;
 chai.use(chaiHttp);

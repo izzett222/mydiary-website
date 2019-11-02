@@ -2,10 +2,10 @@ import express from 'express';
 import morgan from 'morgan';
 import usersRoute from './routes/userRoute';
 import entriesRoute from './routes/entryRoute';
-import Send from './helpers/send';
+import send from './helpers/send';
 
 const app = express();
-const send = new Send();
+// const send = new Send();
 app.use(express.json());
 app.use(morgan('dev'));
 app.use('/api/v1/users', usersRoute);
