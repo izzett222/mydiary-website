@@ -3,6 +3,7 @@
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link href="https://fonts.googleapis.com/css?family=Ubuntu&amp;display=swap" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Lobster&amp;display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap&amp;subset=latin-ext" rel="stylesheet">
 		<link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
 		<link rel="stylesheet" href="../styles/entry/entry.css">
@@ -10,6 +11,30 @@
 		<title>MY DIARY</title>
 	</head>
 	<body>
+		<header>
+			<div class="header row">
+				<a href="../../index.html" class="logo">MyDiary</a>
+			<nav class="desktop">
+				<ul>
+					<li><a href="../../index.html">Home</a></li>
+					<li><a href="profile.html">My Entries</a></li>
+					<li><a href="login.html">Log out</a></li>
+				</ul>
+			</nav>
+			<nav class="mobile">
+
+				<input type="checkbox" id="mob-nav">
+				<label for="mob-nav"><span class="menu-btn"></span></label>
+				<ul class="menu">
+					<li><a href="../../index.html">Home</a></li>
+					<li><a href="profile.html">My Entries</a></li>
+					<li><a href="login.html">Log out</a></li>
+				</ul>
+			</nav>
+			</div>
+			
+		</header>
+		<main>
 		<div class="wrapper">
 			<img src="../images/diarycrop.png">
 			<form action="#">
@@ -20,10 +45,10 @@
 				</div>
 				<textarea placeholder="What's on your mind!" required></textarea>
 				<div class="buttons">
-					<!-- <input type="submit" name="save" value="save"> -->
 					<button type="button" class="btn">Save</button>
 				</div>
 			</form>
 		</div>
+		</main>
 	</body>
 </html>

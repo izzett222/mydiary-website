@@ -374,12 +374,13 @@ footer ul li {
 }
 footer ul li a {
     color: 888;
+    font-weight: 600;
 }
-footer  .icon-small {
+/*footer  .icon-small {
     font-size: 150%;
     margin-right: 0;
     color: #888;
-}
+}*/
 .footer-links li a {
     color: #888;
     border: none;
