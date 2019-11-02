@@ -8,22 +8,149 @@
 }
 html,body {
 	color: #555555;
-	background: #e5e5e5;
 	font-family: 'lato', 'arial', sans-serif;
     font-weight: 300;
     font-size: 20px;
     overflow-x: hidden;
 }
+body {
+	display: grid;
+	grid-template-rows: 50px 1fr;
+}
+/*------------------------------*/
+/*header*/
+/*------------------------------*/
+.mobile {
+    display: none;
+}
+header {
+	background: #444;
+}
+.header {
+    position: relative;
+}
+
+.logo  {
+    font-family: 'Lobster', cursive;
+    font-size: 150%;
+    color: #B5A419;
+    align-self: center;
+    border-bottom: 1px solid transparent;
+    text-decoration: none;
+}
+.header {
+	width: 1140px;
+	margin: 0 auto;
+	display: flex;
+	padding-top: 3px;
+	justify-content: space-between;
+    align-items: center;
+    
+}
+.desktop ul li {
+	display: inline-block;
+	margin-left: 20px;
+	list-style: none;
+}
+.header ul li a {
+	text-decoration: none;
+	border-bottom: none;
+    color: #B5A419;
+	transition: all 0.2s ease-out;
+	font-weight: 400;
+}
+.header ul li a:hover {
+	
+	border-right: 2px solid #B5A419;
+	border-left: 2px solid #B5A419;
+    color: #B5A419;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+/*---------mobile nav---------*/
+.mobile .menu {
+    position: absolute;
+    left: 70%;
+    top: 100%;
+    width: 30%;
+    z-index: 3;
+}
+.mobile li a {
+    display: block;
+    padding: 12px 20px;
+    border-right: 1px solid #f4f4f4;
+    text-decoration: none;
+}
+
+.mobile label {
+    padding: 10px 20px;
+    cursor: pointer;
+    position: relative
+}
+.mobile label .menu-btn {
+    display: block;
+    height: 2px;
+    position: relative;
+    transition: background 0.1s;
+    width: 20px;
+    background: #B5A419;
+}
+.mobile label .menu-btn:after,
+.mobile label .menu-btn:before {
+    display: block;
+    content: "";
+    height: 2px;
+    position: absolute;
+    width: 20px;
+    background: #B5A419;
+    transition: all 0.1s ease-out;
+}
+.mobile label .menu-btn:after {
+    top: 5px;
+}
+.mobile label .menu-btn:before {
+    
+    top:-5px;
+}
+.mobile ul {
+  overflow: hidden;
+  background-color: #444;
+}
+.mobile .menu {
+    clear: both;
+    max-height: 0;
+    transition: max-height .2s ease-out;
+}
+.mobile input {
+    display: none;
+}
+.mobile input:checked ~ .menu {
+  max-height: 240px;
+}
+.mobile input:checked ~ label .menu-btn {
+
+  background: transparent;
+}
+
+.mobile input:checked ~ label .menu-btn:after {
+  transform: rotate(-45deg);
+  top:0;
+}
+
+.mobile input:checked ~ label .menu-btn:before {
+  transform: rotate(45deg);
+  top:0;
+}
 /*------------------------------*/
 /*FORM*/
 /*------------------------------*/
-body {
+main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 100vh;
 }
 .wrapper {
+	margin-top: 20px;
 	position: relative;
 	width: 900px;
 	height: 600px;
@@ -80,7 +207,7 @@ textarea {
 	position: absolute;
 	top: 4%;
 	left: 92%;
-	z-index: 3;
+	z-index: 2;
 	display: inline-block;
 	margin-left: 2px;
 	display: block;
