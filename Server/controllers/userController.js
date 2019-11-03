@@ -27,13 +27,16 @@ export default class UserController {
 
   static async login(req, res) {
     const { email, password } = req.body;
-    const user = users.find((el) => el.email === email.trim());
-    if (!user) {
-      send.error(404, new Error('incorrect email or password'));
-      return send.send(res);
-    }
     try {
-      if (!await bcrypt.compare(password.trim(), user.password)) throw new Error('incorrect email or password');
+      const user = await DbMethods.select('user_id, firstName,lastName, email, password', 'users', `email='${email}'`);
+      if (!user) {
+        send.error(404, new Error('incorrect email or password'));
+        return send.send(res);
+      }
+      if (!await bcrypt.compare(password.trim(), user.password)) {
+        send.error(401, new Error('incorrect email or password'));
+        return send.send(res);
+      }
       const { ...sendUser } = user;
       delete sendUser.password;
       const token = tokenHandler(user);
@@ -41,10 +44,6 @@ export default class UserController {
       send.successful(200, 'User logged in successfully', { token, user: sendUser });
       return send.send(res);
     } catch (err) {
-      if (err.message === 'incorrect email or password') {
-        send.error(401, err);
-        return send.send(res);
-      }
       send.error(500, err);
       return send.send(res);
     }

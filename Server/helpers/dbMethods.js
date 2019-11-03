@@ -4,7 +4,7 @@ class Dbmethods {
   static async select(columns, table, condition) {
     const query = `SELECT ${columns} FROM ${table} WHERE ${condition};`;
     const { rows } = await pool.query(query);
-    return rows;
+    return rows['0'];
   }
 
   static async insert(table, columns, params, data, returns) {
@@ -15,7 +15,7 @@ class Dbmethods {
 
   static async update(table, data, condition, returns) {
     const query = `UPDATE ${table} SET ${data} WHERE ${condition} RETURNING ${returns};`;
-    const { rows } = query;
+    const { rows } = await pool.query(query);
   }
 }
-module.exports = Dbmethods;
+export default Dbmethods;
