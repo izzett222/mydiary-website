@@ -5,6 +5,9 @@ node_js:
 cache:
   directories:
     - "node_modules"
+services:
+    - postgresql
+
 install:
   - npm install
   - npm install -g codecov
@@ -12,6 +15,8 @@ install:
 env:
   global:
   - NODE_ENV=test
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
 
 script:
   - npm run test:remote

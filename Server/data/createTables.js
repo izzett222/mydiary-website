@@ -5,7 +5,7 @@ const table = `DROP TABLE IF EXISTS users, entries CASCADE;
       user_id BIGSERIAL NOT NULL PRIMARY KEY,
       firstName VARCHAR(40) NOT NULL,
       lastName VARCHAR(40) NOT NULL,
-      email TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
     );
     CREATE TABLE entries (

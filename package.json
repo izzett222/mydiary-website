@@ -4,9 +4,9 @@
   "description": "your online diary",
   "main": "index.js",
   "scripts": {
-    "start": "babel-node ./Server/index.js",
-    "test": "nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
-    "test:remote": "nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
+    "start": "npm run table && babel-node ./Server/index.js",
+    "test": "npm run table && nyc  --reporter=html --reporter=text mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
+    "test:remote": "npm run table && nyc mocha --require @babel/register --require @babel/polyfill --timeout 100000 Server/tests/ --exit",
     "dev": "NODE_ENV=development nodemon --exec babel-node ./Server/index.js",
     "table": "babel-node ./Server/data/createTables.js"
   },
