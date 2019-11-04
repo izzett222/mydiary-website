@@ -248,9 +248,21 @@ header ul li a:hover {
     margin-bottom: 20px;
 }
 .features .row:last-of-type p {
-    width: 75%;
+    width: 70%;
+    margin-left: 22%;
+    margin-right: 13%;
     line-height: 145%;
     font-size: 90%;
+    padding-top: 20px;
+    justify-self: center;
+}
+.features .row:last-of-type div {
+    display: grid;
+    grid-template-rows: 110px 1fr;
+}
+.features .icon-big {
+    text-align: center;
+    align-self: end;
 }
 /*-----------------------*/
 /*STEPS*/
