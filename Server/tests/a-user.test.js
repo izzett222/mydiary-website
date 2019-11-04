@@ -20,6 +20,8 @@ describe('users can signup', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
+        expect(res.body).to.not.have.property('data');
+        expect(res.body).to.have.property('message');
         done();
       });
   });
@@ -35,6 +37,8 @@ describe('users can signup', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.not.have.property('data');
         done();
       });
   });
@@ -50,6 +54,8 @@ describe('users can signup', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.not.have.property('data');
         done();
       });
   });
@@ -65,6 +71,8 @@ describe('users can signup', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(400);
+        expect(res.body).to.have.property('message');
+        expect(res.body).to.not.have.property('data');
         done();
       });
   });
@@ -84,28 +92,10 @@ describe('users can signup', () => {
         expect(res.body).to.have.property('data');
         expect(res.body.data).to.have.property('user');
         expect(res.body.data.user).to.have.property('user_id');
-        expect(res.body.data.user).to.have.property('firstName');
-        expect(res.body.data.user).to.have.property('lastName');
+        expect(res.body.data.user).to.have.property('firstname');
+        expect(res.body.data.user).to.have.property('lastname');
         expect(res.body.data.user).to.have.property('email');
         expect(res.body.data.user).to.not.have.property('password');
-        done();
-      });
-  });
-  it('it should sign up new users', (done) => {
-    const newUser = {
-      firstName: 'Emma',
-      lastName: 'Ishimwe',
-      email: 'emma4@gmail.com',
-      password: 'password12345'
-    };
-    chai
-      .request(app)
-      .post('/api/v1/users/signup')
-      .send(newUser)
-      .end((err, res) => {
-        expect(res.status).to.equal(201);
-        expect(res.body).to.have.property('data');
-        expect(res.body.data).to.have.property('token');
         done();
       });
   });
@@ -122,6 +112,8 @@ describe('users can signup', () => {
       .send(newUser)
       .end((err, res) => {
         expect(res.status).to.equal(409);
+        expect(res.body).to.have.property('message');
+        expect(res.body.message).deep.equal('email already taken');
         done();
       });
   });
@@ -142,8 +134,8 @@ describe('users can signin', () => {
         expect(res.body.data).to.have.property('token');
         expect(res.body.data).to.have.property('user');
         expect(res.body.data.user).to.have.property('user_id');
-        expect(res.body.data.user).to.have.property('firstName');
-        expect(res.body.data.user).to.have.property('lastName');
+        expect(res.body.data.user).to.have.property('firstname');
+        expect(res.body.data.user).to.have.property('lastname');
         expect(res.body.data.user).to.have.property('email');
         expect(res.body.data.user).to.not.have.property('password');
         done();
