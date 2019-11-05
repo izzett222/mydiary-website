@@ -10,47 +10,38 @@ html,body {
 	background: #e5e5e5;
 	color: #555555;
 	font-family: 'lato', 'arial', sans-serif;
-    font-weight: 300;
-    font-size: 20px;
-    overflow: hidden;
-    max-height: 100vh;
+  font-weight: 300;
+  font-size: 20px;
+  overflow: hidden;
+  max-height: 100vh;
 }
 /*------------------------------*/
-/*TITLE*/
+/*HEADER*/
 /*------------------------------*/
 .wrapper {
 	margin: 0 auto;
-	margin-top: 8%;
+	margin-top: 4%;
 	width: 520px;
 	height: 460px;
+
 }
-.top-part span {
-	display: inline-block;
-	font-size: 120%;
-	font-weight: 400;
-	display: inline-block;
+.logo {
+	text-align: center;
+	margin-top: 4%;
+ 	}
+.logo a  {
+  font-family: 'Lobster', cursive;
+  font-size: 190%;
+  color: #B5A419;
+ 	text-decoration: none;
+ 	transition: color 0.2s;
 }
-.logo  {
-    font-family: 'Lobster', cursive;
-    color: #B5A419;
-    padding-left: 4px;
-    padding-right: 4px;
+.logo a:hover {
+	color: #8D7E04;
 }
-.top-part {
-	display: flex;
-	justify-content: space-between;
-}
-.top-part a {
-	display: inline-block;
-	margin-left: 3px;
-	text-decoration: none;
-	color: #25728a;
-	transition: color 0.2s;
-}
-.top-part a:hover {
-	display: inline-block;
-	color: black;
-}
+/*------------------------------*/
+/*DECORATION*/
+/*------------------------------*/
 .deco {
 	width: 100%;
 	height: 4px;
@@ -63,38 +54,57 @@ html,body {
 	);
 	margin-top: 3px;
 }
+/*------------------------------*/
+/*FORM*/
+/*------------------------------*/
 .signup-form {
 	width: 100%;
-	height: 80%;
+	height: 85%;
 	background: white;
 }
 input {
-    font: inherit;
-    border: 1px solid #aaa;
-    width: 300px;
-    display: block;
-    padding: 3px 10px;
-    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-    border-radius: 3px;
+  font: inherit;
+  border: 1px solid #aaa;
+  width: 300px;
+  display: block;
+  padding: 3px 10px;
+  margin: 0 auto;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
 }
 form label span {
 	display: inline-block;
 	margin-bottom: 8px;
+	text-align: left;
 	font-size: 80%;
 }
 .small {
 	width: 145px;
+	margin: 0;
 }
 .small-cont {
-	display: inline-block;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin:0 auto;
+	justify-content: start;
+	width: 300px;
+	grid-gap: 10px;
 }
-.small-cont:first-of-type {
-	margin-right: 10px;
-	
+.small-cont div  {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+}
+.small-cont div label {
+	display: block
 }
 form {
 	padding-top: 5%;
-	padding-left: 5%;
+}
+form .big {
+	display: grid;
+	grid-template-rows: 1fr 1fr;
+	width: 300px;
+	margin: 0 auto;
 }
 label span {
 	font-weight: 400;
@@ -105,38 +115,63 @@ label span {
 .btn,
 input[type=submit] {
 	display: inline-block;
-    padding:10px 40px;
-    font-weight: 300;
-    border-radius: 4px;
-    text-align: center;
-    text-transform: capitalize;
-    border: 1px solid #B5A419;
-    transition: background-color 0.2s, border 0.2s, color 0.2s;
-    background-color: #B5A419;
-    color: #fff;
+  padding:10px 40px;
+  font-weight: 300;
+  border-radius: 4px;
+  text-align: center;
+  text-transform: capitalize;
+  border: 1px solid #B5A419;
+  transition: background-color 0.2s, border 0.2s, color 0.2s;
+  background-color: #B5A419;
+  color: #fff;
 }
 .btn:hover,
 input[type=submit]:hover {
-    background-color: #948404;
-    color: #fff;
-    border: 1px solid #948404;
+  background-color: #948404;
+  color: #fff;
+  border: 1px solid #948404;
 }
 input[type="submit"] {
 	margin-top: 20px;
-    font-family: inherit;
-    font-size: inherit;
-    vertical-align: top;
-    padding: 6px 16px 6px 16px;
-    border: 1px solid #a2a2a2;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-    background-color: #B5A419;
-    width: 100px;
+  font-family: inherit;
+  font-size: inherit;
+  vertical-align: top;
+  padding: 6px 16px 6px 16px;
+  border: 1px solid #a2a2a2;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 5px;
+  background-color: #B5A419;
 	transition: background-color 0.2s linear;
 }
 input[type="submit"]:hover {
-    background-color: #948404;
+  background-color: #948404;
+}
+.signup {
+	text-align: center;
+	font-size: 80%;
+	font-weight: 400;
+	margin-top: 5px;
+}
+.signup a:link,
+.signup a:visited {
+  display: inline-block;
+  color: #25728b;
+  text-decoration: none;
+  font-size: 80%;
+  margin-top: 4px;
+  margin-bottom: 5px;
+}
+.signup a:hover {
+  display: inline-block;
+  color: black;
+}
+.big:last-of-type {
+	grid-template-rows: 1fr;
+	justify-content: center;
+	align-items: start;
+	width: 300px;
+	margin: 0 auto;
 }
 /*------------------------------*/
 /*footer*/
