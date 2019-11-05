@@ -9,45 +9,43 @@
 		<link rel="stylesheet" type="text/css" href="../styles/signup/query.css">
 	</head>
 	<body>
+		<header>
+			<div class="logo"><a href="../../index.html">MyDiary</a></div>
+		</header>
 		<div class="wrapper">	
-			<div class="top-part">
-			<div class="join">
-				<span>Join</span>
-				<span class="logo">
-					MyDiary
-				</span>
-				<span>today</span>
+			<div class="deco"></div>
+			<div class="signup-form">
+				<form action="profile.html">
+					<div class="small-cont">
+						<div>
+							<label><span>First name</span></label>
+						<input class="small" type="text" name="firstname" required>
+						</div>
+						<div>
+							<label><span>Last name</span></label>
+							<input class="small" type="text" name="lastname" required>
+					</div>
+				</div>
+					<div class="big">
+					<label><span>Email</span></label>
+						<input type="email" name="email" srequired>
+					</div>
+					<div class="big">
+					<label><span>Username</span></label>
+						<input type="text" name="username" required>
+					</div>
+					<div class="big">
+						<label><span>Password</span></label>
+						<input type="password" name="password" required>
+					</div>
+					<div class="big">
+						<input type="submit" name="signup" value="Sign up">
+					</div>
+				</form>
+				<div class="signup">
+					<p>Already signup? <a href="login.html">Log in</a></p>
+				</div>
 			</div>
-			<div class="signup">
-				<p>Already signup? <a href="login.html">Log in</a></p>
-			</div>
-		</div>
-		<div class="deco"></div>
-		<div class="signup-form">
-			<form action="profile.html">
-				<div class="small-cont">
-				<label><span>First name</span></label>
-					<input class="small" type="text" name="firstname" required>
-				</div>
-				<div class="small-cont">
-				<label><span>Last name</span></label>
-					<input class="small" type="text" name="lastname" required>
-				</div>
-				<div>
-				<label><span>Email</span></label>
-					<input type="email" name="email"required>
-				</div>
-				<div>
-				<label><span>Username</span></label>
-					<input type="text" name="username"required>
-				</div>
-				<div>
-					<label><span>Password</span></label>
-					<input type="password" name="password" required>
-				</div>
-				<input type="submit" name="signup" value="Sign up">
-			</form>
-		</div>
 		</div>
 		<footer>
 		<div class="footer">

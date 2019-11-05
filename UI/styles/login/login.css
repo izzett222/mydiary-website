@@ -32,13 +32,30 @@ html,body {
 	color: #8D7E04;
 }
 /*------------------------------*/
+/*DECORATION*/
+/*------------------------------*/
+.deco {
+	height: 4px;
+	background: repeating-linear-gradient(
+  	to right,
+  	#f6ba52,
+  	#f6ba52 10px,
+  	#ffd180 10px,
+  	#ffd180 20px
+	);
+	margin: 0 auto;
+	margin-top: 4%;
+	width: 500px;
+
+}
+/*------------------------------*/
 /*form*/
 /*------------------------------*/
 section {
 	background-color: #f7f6f3;
 	width: 500px;
 	height: 400px;
-	margin: 4% auto;
+	margin: 0 auto;
 	display: flex;
 	font-weight: 400;
 	justify-content: center;
@@ -88,9 +105,9 @@ input[type="submit"]:hover {
     border: 1px solid #948404;
 }
 .signup-sec {
-	margin-top: 10px;
-	margin-left: 108px;
+	text-align: center;
 	font-size: 80%;
+	margin-top: 5px;
 }
 /*------------------------------*/
 /*footer*/
