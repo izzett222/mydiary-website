@@ -170,11 +170,29 @@ form {
 textarea {
 	width: 100%;
 }
-.title {
+form h1,
+form div {
+	width: 100%;
+}
+/*h1 {
+	
+}font-size: 110%;*/
+/*.title {
 	display: grid;
 	grid-template-columns: 1fr 10fr;
 	margin-bottom: 25px;
 	margin-top: 70px;
+}*/
+.title {
+	margin-bottom: 25px;
+	margin-top: 60px;
+	color: #555;
+}
+form p {
+	margin-top: 30px;
+	line-height: 145%;
+	font-size: 120%;
+	font-weight: 400;
 }
 input[type="text"], textarea {
 	padding: 0.8em;
@@ -195,6 +213,7 @@ textarea {
 	resize: none;
 	font-size: 115%;
 	line-height: 145%;
+	word-spacing: 2px;
 	font-family: sans-serif;
 }
 .wrapper a{
@@ -242,6 +261,9 @@ label {
 }
 .btn:hover {
 	background-color: #948404;
+}
+.buttons {
+	margin-top: 15%;
 }
 /*------------------------------*/
 /*FORM*/

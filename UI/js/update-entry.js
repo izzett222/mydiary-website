@@ -8,7 +8,6 @@ const entry = `Lorem ipsum dolor sit amet, consectetur adipisicing elit,
   tempor.`;
 const title = 'The most stressful day of my life';
 const entryData = () => {
-  document.querySelector('form .title h1').textContent = title;
-  document.querySelector('form p').textContent = entry;
-}
-
+  document.querySelector("input[type='text']").value = title;
+  document.querySelector('textarea').value = entry;
+};
