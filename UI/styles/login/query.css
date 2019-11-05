@@ -1,35 +1,51 @@
 @media only screen and (max-width: 530px) {
 	section {
-	background-color: white;
-	width: 400px;
-	height: 300px;
-	margin: 4% auto;
+		background-color: white;
+		width: 400px;
+		height: 300px;
+	}
+	.deco {
+		width: 400px;
+		margin: 0 auto;
+		margin-top: 4%;
 	}
 }
 @media only screen and (max-width: 410px) {
 	section {
-	background-color: white;
-	width: 350px;
-	height: 350px;
-	margin: 4% auto;
+		background-color: white;
+		width: 350px;
+		height: 350px;
+	}
+	.deco {
+		width: 350px;
+		margin: 0 auto;
+		margin-top: 4%;
 	}
 }
 @media only screen and (max-width: 350px) {
 	section {
-	background-color: white;
-	width: 100%;
-	height: 350px;
-	margin: 4% auto;
+		background-color: white;
+		width: 100%;
+		height: 350px;
+	}
+	.deco {
+		width: 100%;
+		margin: 0 auto;
+		margin-top: 4%;
 	}
 }
 @media only screen and (max-width: 290px) {
 	section {
-	background-color: white;
-	width: 100%;
-	height: 350px;
-	margin: 4% auto;
+		background-color: white;
+		width: 100%;
+		height: 350px;
 	}
-input {
+	.deco {
+		width: 350px;
+		margin: 0 auto;
+		margin-top: 4%;
+	}
+	input {
     font: inherit;
     border: 1px solid #aaa;
     width: 100%;
