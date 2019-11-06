@@ -1,24 +1,27 @@
+import uuidv4 from 'uuid/v4';
 import send from '../helpers/send';
 import slugStr from '../helpers/slug';
 import entries from '../data/entryData';
+import DbMethods from '../helpers/dbMethods';
 
 export default class EntryController {
-  static createEntry(req, res) {
-    const slug = slugStr(req.body.title.trim());
-    const entry = {
-      id: 1,
-      createdOn: new Date().toDateString(),
-      slug,
-      title: req.body.title.trim(),
-      description: req.body.description.trim(),
-      user_id: req.user.user_id,
-    };
-    if (entries.length > 0) {
-      entry.id = entries[entries.length - 1].id + 1;
+  static async createEntry(req, res) {
+    let { title } = req.body;
+    const { description } = req.body;
+    if (!title) {
+      title = 'untitled';
     }
-    entries.push(entry);
-    send.successful(201, 'entry successfully created', entry);
-    return send.send(res);
+    const { userid } = req;
+    const slug = slugStr(title.trim());
+    const id = uuidv4();
+    try {
+      const entry = await DbMethods.insert('entries', 'id, slug, title, description, userid', '$1, $2, $3, $4, $5', [id, slug, title.trim(), description.trim(), userid], '*');
+      send.successful(201, 'entry successfully created', entry);
+      return send.send(res);
+    } catch (err) {
+      send.error(500, err);
+      return send.send(res);
+    }
   }
 
   static updateEntry(req, res) {
