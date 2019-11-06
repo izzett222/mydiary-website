@@ -334,24 +334,15 @@ form input[type="submit"]:hover {
 .entry h2 {
 	font-weight: 400;
 	font-size: 110%;
-} 
-/*.entry h2 a {
-    display: block;
-    font-weight: 400;
-    font-size: 110%;
-    height: 0;
-    background-color: inherit;
-    padding: 0;
-    box-shadow: 0;
-    transform: 0;
-}*/
+}
 .summary p {
 	width: 85%;
 	margin-top: 10px;
 	line-height: 125%;
 	word-spacing: 2px;
 }
-.entry a {
+.entry a,
+.icons button {
 	display: block;
 	height: 40px;
 	width: fit-content;
@@ -374,12 +365,22 @@ form input[type="submit"]:hover {
     text-decoration: none;
     transition: text-decoration 0.5s;
 }
-.entry a:hover {
+.entry a:hover,
+.icons button:hover {
 	transform: scale(1.2);
 }
 .entry h2 a:hover {
   transform: none;
   text-decoration: underline;
+}
+.icons {
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+}
+.icons button {
+    border: none;
+    font-size: 20px;
+    outline: none;
 }
 /*-----------------------*/
 /*FOOTER*/
@@ -404,11 +405,6 @@ footer ul li a {
     color: 888;
     font-weight: 600;
 }
-/*footer  .icon-small {
-    font-size: 150%;
-    margin-right: 0;
-    color: #888;
-}*/
 .footer-links li a {
     color: #888;
     border: none;
@@ -419,4 +415,73 @@ footer ul li a {
 footer p {
     text-align: center;
     color: #888;
+}
+.icons .ion-md-trash {
+    color:#FC491A;
+    padding: 3px;
+}
+/*------------------------------*/
+/*DELETE*/
+/*------------------------------*/
+.btn {
+    box-shadow: inset 0px 1px 0px 0px #B5A419;
+    background-color: #B5A419;
+    border: 0;
+    border-radius: 2px;
+    display: inline-block;
+    cursor: pointer;
+    color: #ffffff;
+    font-family: Arial;
+    font-size: 100%;
+    font-weight: bold;
+    padding: 6px 15px;
+    margin-top: 5px;
+    outline: none;
+    transition: background-color 0.2s;
+ }
+.hidden {
+    display: none;
+}
+.popup {
+    position: fixed;
+    z-index: 3;
+    border: 1px solid rgba(0,0,0,0.1);
+    width: 400px;
+    padding: 20px 20px;
+    top: 45%;
+    left: 35%;
+    background-color: #555;
+    color: #fff;
+    border-radius: 3px;
+}
+.popup p {
+    font-size: 95%;
+    margin-bottom: 35px;
+}
+.popup button:first-of-type {
+    margin-left: 75px;
+    cursor: pointer;
+    background: #FC491A;
+    border: none;
+    margin-top: 1px;
+    padding: 6px 37px 6px 37px;
+    box-shadow: none;
+ }
+.popup button:first-of-type:hover {
+    cursor: pointer;
+    background: #CF2D02;
+ }
+.popup button:last-of-type {
+    height:35px;
+    font-size: 95%;
+    color: #555;
+    padding: 0 15px;
+    border:0;
+    box-shadow: 0;
+    outline: none;
+    background: #fff;
+    transition: background 0.2s;
+ }
+.popup button:last-of-type:hover {
+    background: #cfcfcf;
 }
