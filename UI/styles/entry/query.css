@@ -26,11 +26,12 @@
 /* big phones to small tablet*/
 @media only screen and (max-width:767px) {
 	html,body {
-		font-size: 16px;
+		font-size: 18px;
 	}
 	header {
 		font-size: 135%;
 	}
+
 	form {
 		padding-left: 52px;
 		padding-right: 25px;
@@ -41,7 +42,22 @@
 	.wrapper a{
 		left: 90%;
 	}
+	form p {
+		/*height: 350px;*/
+		overflow: scroll;
+	}
 }
+/* medium  phones to big phone*/
+@media only screen and (max-width:590px) {
+	.title h1 {
+		font-size: 26px;
+	}
+	form p {
+		/*height: 350px;*/
+		overflow: scroll;
+	}
+}
+
 /* medium  phones to big phone*/
 @media only screen and (max-width:480px) {
 	header {
@@ -65,6 +81,10 @@
 		width: 32px;
 		top: 4%;
 		left: 87%;
+	}
+	form p {
+		/*height: 350px;*/
+		overflow: scroll;
 	}
 }
 /* really small phones*/
