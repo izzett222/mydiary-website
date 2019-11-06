@@ -162,8 +162,8 @@ img {
 form {
 	position: absolute;
 	top: 0;
-	padding-left: 70px;
-	padding-right: 30px;
+	padding-left: 115px;
+	padding-right: 80px;
 	width: 100%;
 }
 .title,
@@ -193,6 +193,9 @@ form p {
 	line-height: 145%;
 	font-size: 120%;
 	font-weight: 400;
+	word-wrap: break-word;
+	word-spacing: 2px;
+	height: 390px;
 }
 input[type="text"], textarea {
 	padding: 0.8em;
@@ -262,9 +265,6 @@ label {
 .btn:hover {
 	background-color: #948404;
 }
-.buttons {
-	margin-top: 15%;
-}
 /*------------------------------*/
 /*FORM*/
 /*------------------------------*/
@@ -311,5 +311,3 @@ label {
 .popup button:last-of-type:hover {
 	background: #cfcfcf;
 }
-
-
