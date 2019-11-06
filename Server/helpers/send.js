@@ -21,7 +21,7 @@ class Send {
     const result = {
       status: this.statusCode,
       message: this.message,
-      data: this.data
+      data: this.data,
     };
     if (this.message === null) {
       delete result.message;
