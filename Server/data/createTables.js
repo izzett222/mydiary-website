@@ -9,10 +9,13 @@ const table = `DROP TABLE IF EXISTS users, entries CASCADE;
       password TEXT NOT NULL
     );
     CREATE TABLE entries (
-      id BIGSERIAL NOT NULL PRIMARY KEY,
+      id UUID NOT NULL PRIMARY KEY,
       title VARCHAR(40) NOT NULL,
+      slug TEXT NOT NULL,
       description TEXT NOT NULL,
-      createdOn TIMESTAMP DEFAULT NOW()
+      createdon TIMESTAMP DEFAULT NOW(),
+      userid UUID NOT NULL,
+      FOREIGN KEY (userid) REFERENCES users(userid)
     );`;
 const createTable = async () => {
   try {
