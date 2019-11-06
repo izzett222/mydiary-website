@@ -16,6 +16,7 @@ class Dbmethods {
   static async update(table, data, condition, returns) {
     const query = `UPDATE ${table} SET ${data} WHERE ${condition} RETURNING ${returns};`;
     const { rows } = await pool.query(query);
+    return rows['0'];
   }
 }
 export default Dbmethods;

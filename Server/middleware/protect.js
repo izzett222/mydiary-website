@@ -10,19 +10,19 @@ const protect = async (req, res, next) => {
     req.headers.token
     && req.headers.token.startsWith('Bearer')
   ) {
-    token = req.headers.token.split(' ')[1];
+    [, ...token] = req.headers.token.split(' ');
   }
   if (!token) {
     send.error(401, new Error('token not found'));
     return send.send(res);
   }
   const decoded = jwt.verify(token, process.env.JWT_KEY);
-  const freshUser = users.find((el) => el.user_id === decoded.user_id);
+  const freshUser = users.find((el) => el.userid === decoded.userid);
   if (!freshUser) {
     send.error(401, new Error('the user who belong to this token does not exist'));
     return send.send(res);
   }
   req.user = freshUser;
-  next();
+  return next();
 };
 export default protect;

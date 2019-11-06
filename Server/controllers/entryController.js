@@ -1,7 +1,6 @@
 import send from '../helpers/send';
 import slugStr from '../helpers/slug';
 import entries from '../data/entryData';
-import EntryValidator from '../helpers/entryValidators';
 
 export default class EntryController {
   static createEntry(req, res) {
@@ -12,7 +11,7 @@ export default class EntryController {
       slug,
       title: req.body.title.trim(),
       description: req.body.description.trim(),
-      user_id: req.user.user_id
+      user_id: req.user.user_id,
     };
     if (entries.length > 0) {
       entry.id = entries[entries.length - 1].id + 1;
@@ -66,6 +65,6 @@ export default class EntryController {
       return send.send(res);
     }
     send.successful(200, null, entry);
-    send.send(res);
+    return send.send(res);
   }
 }
