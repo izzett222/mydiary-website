@@ -6,7 +6,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Lobster&amp;display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700,700i,900,900i&amp;display=swap&amp;subset=latin-ext" rel="stylesheet">
 		<link href="https://unpkg.com/ionicons@4.2.2/dist/css/ionicons.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="../styles/entry/read-only.css">
+		<link rel="stylesheet" href="../styles/entry/entry.css">
 		<link rel="stylesheet" href="../styles/entry/query.css">
 		<title>MY DIARY</title>
 	</head>
@@ -39,23 +39,23 @@
 			<form action="#">
 				<a href="profile.html"><i class="ion-md-close"></i></a>
 				<div class="title">
-					<h1></h1>
+					<label for="title">Title</label>
+					<input type="text" id="title" name="title" required placeholder="Title">
 				</div>
-				<p></p>
+				<textarea placeholder="What's on your mind!" required></textarea>
 				<div class="buttons">
 					<button class="btn" type="button">Delete</button>
-					<button class="btn last" type="button">Update</button>
+					<button class="btn" type="button">Update</button>
 				</div>
 				<div class="popup hidden">
 					<p>Are you sure you want to delete this ENTRY</p>
-					<button class="btn" type="button">ok</button>
+					<button class="btn"type='button'>ok</button>
 					<button class="btn" type="button">Cancel</button>
 				</div>
 			</form>
 		</div>
-		<script type="text/javascript" src="../js/view-entry.js"></script>
+		<script type="text/javascript" src="../js/update-entry.js"></script>
 		<script type="text/javascript" src="../js/deletePopUp.js"></script>
-		<script type="text/javascript" src="../js/update-link.js"></script>
 		</main>
 	</body>
 </html>

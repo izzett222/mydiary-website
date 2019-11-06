@@ -162,19 +162,40 @@ img {
 form {
 	position: absolute;
 	top: 0;
-	padding-left: 70px;
-	padding-right: 30px;
+	padding-left: 115px;
+	padding-right: 80px;
 	width: 100%;
 }
 .title,
 textarea {
 	width: 100%;
 }
-.title {
+form h1,
+form div {
+	width: 100%;
+}
+/*h1 {
+	
+}font-size: 110%;*/
+/*.title {
 	display: grid;
 	grid-template-columns: 1fr 10fr;
 	margin-bottom: 25px;
 	margin-top: 70px;
+}*/
+.title {
+	margin-bottom: 25px;
+	margin-top: 60px;
+	color: #555;
+}
+form p {
+	margin-top: 30px;
+	line-height: 145%;
+	font-size: 120%;
+	font-weight: 400;
+	word-wrap: break-word;
+	word-spacing: 2px;
+	height: 390px;
 }
 input[type="text"], textarea {
 	padding: 0.8em;
@@ -195,6 +216,7 @@ textarea {
 	resize: none;
 	font-size: 115%;
 	line-height: 145%;
+	word-spacing: 2px;
 	font-family: sans-serif;
 }
 .wrapper a{
@@ -289,5 +311,3 @@ label {
 .popup button:last-of-type:hover {
 	background: #cfcfcf;
 }
-
-
