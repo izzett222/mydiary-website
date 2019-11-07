@@ -35,10 +35,10 @@ export default class EntryController {
       if (req.body.description) {
         entry = await DbMethods.update('entries', `description='${req.body.description}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
       }
-      if (!entry) {
-        send.error(404, new Error('entry not found'));
-        return send.send(res);
-      }
+      // if (!entry) {
+      //   send.error(404, new Error('entry not found'));
+      //   return send.send(res);
+      // }
       send.successful(200, 'entry successfully edited', entry);
       return send.send(res);
     } catch (error) {
@@ -47,11 +47,15 @@ export default class EntryController {
     }
   }
 
-  static deleteEntry(req, res) {
-    const { entry } = req;
-    entries.splice(entries.indexOf(entry), 1);
-    send.successful(204, 'entry successful deleted', null);
-    return send.send(res);
+  static async deleteEntry(req, res) {
+    try {
+      await DbMethods.delete('entries', `id='${req.params.id}' AND userid='${req.userid}'`);
+      send.successful(200, 'entry successful deleted', null);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
+    }
   }
 
   static async getAllEntry(req, res) {

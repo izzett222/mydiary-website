@@ -240,7 +240,7 @@ describe('entry endpoints testing', () => {
         .send(modify)
         .end((err, res) => {
           expect(res.status).to.equal(404);
-          expect(res.body.message).to.equal('entry not found');
+          expect(res.body.message).to.equal('entry not found in your diary');
           expect(res.body.status).to.deep.equal(404);
           done();
         });
@@ -261,24 +261,6 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    //     it('it should delete an entry', (done) => {
-    //       chai.request(app)
-    //         .delete('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(204);
-    //           done();
-    //         });
-    //     });
-    //     it('it should not delete an entry with invalid and non existant id', (done) => {
-    //       chai.request(app)
-    //         .delete('/api/v1/entries/10000')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(404);
-    //           done();
-    //         });
-    //     });
     it('it should get all entries', (done) => {
       chai.request(app)
         .get('/api/v1/entries')
@@ -325,6 +307,17 @@ describe('entry endpoints testing', () => {
           expect(res.status).to.equal(404);
           expect(res.body.status).deep.equal(404);
           expect(res.body.message).deep.equal('page 10 not found');
+          done();
+        });
+    });
+    it('it should delete an entry', (done) => {
+      chai.request(app)
+        .delete(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.status).to.deep.equal(200);
+          expect(res.body.message).to.deep.equal('entry successful deleted');
           done();
         });
     });

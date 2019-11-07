@@ -18,5 +18,11 @@ class Dbmethods {
     const { rows } = await pool.query(query);
     return rows['0'];
   }
+
+  static async delete(table, condition) {
+    const query = `DELETE FROM ${table} WHERE ${condition} RETURNING *`;
+    const { rows } = await pool.query(query);
+    return rows['0'];
+  }
 }
 export default Dbmethods;
