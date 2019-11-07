@@ -10,7 +10,7 @@ dotenv.config();
 describe('entry endpoints testing', () => {
   describe('when the user has signed up and given a valid token', () => {
     let token;
-    let slug;
+    // let slug;
     before((done) => {
       const loggedUser = {
         email: 'john45@gmail.com',
@@ -26,15 +26,18 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    //  it('it should get an entry', (done) => {
-    //  chai.request(app)
-    //    .get('/api/v1/entries')
-    //    .set('token', `Bearer ${token}`)
-    //    .end((err, res) => {
-    //      expect(res.status).to.equal(404);
-    //      done();
-    //     });
-    //   );
+    it('it should get entries', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.status).to.deep.equal(404);
+          expect(res.body.message).to.deep.equal('your diary is empty, no entries found');
+          expect(res.body).to.not.have.property('data');
+          done();
+        });
+    });
     it('it should create a entry', (done) => {
       const entry = {
         title: 'wow',
@@ -46,7 +49,7 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .send(entry)
         .end((err, res) => {
-          slug = res.body.data.slug;
+          // slug = res.body.data.slug;
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal(201);
           expect(res.body.data).to.be.an('object');
@@ -70,7 +73,7 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .send(entry)
         .end((err, res) => {
-          slug = res.body.data.slug;
+          // slug = res.body.data.slug;
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal(201);
           expect(res.body.data).to.be.an('object');
@@ -201,7 +204,7 @@ describe('entry endpoints testing', () => {
     //           expect(res.status).to.equal(400);
     //           expect(res.body).to.have.property('message');
     //           expect(res.body).to.have.property('status');
-    //           expect(res.body).to.not.have.property('data');        
+    //           expect(res.body).to.not.have.property('data');
     //           done();
     //         });
     //     });
@@ -251,16 +254,55 @@ describe('entry endpoints testing', () => {
     //           done();
     //         });
     //     });
-    //     it('it should get all entries', (done) => {
-    //       chai.request(app)
-    //         .get('/api/v1/entries')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           expect(res.body.data.length).to.equal(1);
-    //           done();
-    //         });
-    //     });
+    it('it should get all entries', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.be.an('array');
+          expect(res.body.data.length).to.equal(2);
+          done();
+        });
+    });
+    it('it should get all entries on a page', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries?p=1')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.page).to.deep.equal(1);
+          expect(res.body.data.numberOfPages).to.deep.equal(1);
+          expect(res.body.data.entriesOnPage).to.deep.equal(2);
+          expect(res.body.data.totalEntries).to.deep.equal(2);
+          expect(res.body.data.entries).to.be.an('array');
+          expect(res.body.data.entries.length).to.deep.equal(2);
+          done();
+        });
+    });
+    it('it should not get  entries on a non numeric page', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries?p=d')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.status).deep.equal(400);
+          expect(res.body.message).deep.equal('a page should be a number and should be greater than 0');
+          done();
+        });
+    });
+    it('it should not get  entries on a non existant page', (done) => {
+      chai.request(app)
+        .get('/api/v1/entries?p=10')
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.status).deep.equal(404);
+          expect(res.body.message).deep.equal('page 10 not found');
+          done();
+        });
+    });
     //     it('it should get an entry', (done) => {
     //       chai.request(app)
     //         .get('/api/v1/entries/2')

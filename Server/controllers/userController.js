@@ -29,7 +29,8 @@ export default class UserController {
   static async login(req, res) {
     const { email, password } = req.body;
     try {
-      const user = await DbMethods.select('userid, firstName,lastName, email, password', 'users', `email='${email}'`);
+      const query = await DbMethods.select('userid, firstName,lastName, email, password', 'users', `email='${email}'`);
+      const user = query['0'];
       if (!user) {
         send.error(404, new Error('incorrect email or password'));
         return send.send(res);

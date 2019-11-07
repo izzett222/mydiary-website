@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
-import { users } from '../data/userData';
+// import { users } from '../data/userData';
 import send from '../helpers/send';
 import DbMethods from '../helpers/dbMethods';
 
@@ -19,7 +19,8 @@ const protect = async (req, res, next) => {
     return send.send(res);
   } try {
     const decoded = jwt.verify(token, process.env.JWT_KEY);
-    const freshUser = await DbMethods.select('userid', 'users', `userid='${decoded.userid}'`);
+    const query = await DbMethods.select('userid', 'users', `userid='${decoded.userid}'`);
+    const freshUser = query['0'];
     if (!freshUser) {
       send.error(403, new Error('the user who belong to this token does not exist'));
       return send.send(res);

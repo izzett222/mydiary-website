@@ -4,7 +4,7 @@ class Dbmethods {
   static async select(columns, table, condition) {
     const query = `SELECT ${columns} FROM ${table} WHERE ${condition};`;
     const { rows } = await pool.query(query);
-    return rows['0'];
+    return rows;
   }
 
   static async insert(table, columns, params, data, returns) {
