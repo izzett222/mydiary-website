@@ -11,6 +11,7 @@ describe('entry endpoints testing', () => {
   describe('when the user has signed up and given a valid token', () => {
     let token;
     // let slug;
+    let id;
     before((done) => {
       const loggedUser = {
         email: 'john45@gmail.com',
@@ -50,6 +51,7 @@ describe('entry endpoints testing', () => {
         .send(entry)
         .end((err, res) => {
           // slug = res.body.data.slug;
+          id = res.body.data.id;
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal(201);
           expect(res.body.data).to.be.an('object');
@@ -123,119 +125,142 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    //     it('it should modify an entry with all data given', (done) => {
-    //       const modify = {
-    //         title: 'ready',
-    //         description: 'ohhh this is beatiful'
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           if (modify.title) {
-    //             expect(res.body.data).to.include({
-    //               title: modify.title
-    //             });
-    //           }
-    //           if (modify.description) {
-    //             expect(res.body.data).to.include({
-    //               description: modify.description
-    //             });
-    //           }
-    //           done();
-    //         });
-    //     });
-    //     it('it should modify an entry with partial data given(title)', (done) => {
-    //       const modify = {
-    //         title: 'ready'
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           if (modify.title) {
-    //             expect(res.body.data).to.include({
-    //               title: modify.title
-    //             });
-    //           }
-    //           if (modify.description) {
-    //             expect(res.body.data).to.include({
-    //               description: modify.description
-    //             });
-    //           }
-    //           done();
-    //         });
-    //     });
-    //     it('it should modify an entry with partial data given(description)', (done) => {
-    //       const modify = {
-    //         description: 'ohhh this is beatiful'
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           if (modify.title) {
-    //             expect(res.body.data).to.include({
-    //               title: modify.title
-    //             });
-    //           }
-    //           if (modify.description) {
-    //             expect(res.body.data).to.include({
-    //               description: modify.description
-    //             });
-    //           }
-    //           done();
-    //         });
-    //     });
-    //     it('it should not modify an entry with not data given', (done) => {
-    //       const modify = {
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(400);
-    //           expect(res.body).to.have.property('message');
-    //           expect(res.body).to.have.property('status');
-    //           expect(res.body).to.not.have.property('data');
-    //           done();
-    //         });
-    //     });
-    //     it('it should not modify an entry with invalid request', (done) => {
-    //       const modify = {
-    //         title: 're',
-    //         description: 'ohhh this is beatif'
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/1')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(400);
-    //           done();
-    //         });
-    //     });
-    //     it('it should not modify an entry which does not exits', (done) => {
-    //       const modify = {
-    //         title: 'readyg',
-    //         description: 'ohhh this is beatif'
-    //       };
-    //       chai.request(app)
-    //         .patch('/api/v1/entries/8000')
-    //         .set('token', `Bearer ${token}`)
-    //         .send(modify)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(404);
-    //           done();
-    //         });
-    //     });
+    it('it should modify an entry with all data given', (done) => {
+      const modify = {
+        title: 'ready',
+        description: 'ohhh this is beatiful',
+      };
+      chai.request(app)
+        .patch(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.include({
+            title: modify.title,
+          });
+          expect(res.body.data).to.include({
+            description: modify.description,
+          });
+          expect(res.body.status).to.deep.equal(200);
+          expect(res.body.data.id).to.be.a('string');
+          expect(res.body.data.userid).to.be.a('string');
+          expect(res.body.data.slug).to.be.a('string');
+          expect(res.body.data.createdon).to.be.a('string');
+          expect(res.body.message).to.deep.equal('entry successfully edited');
+          done();
+        });
+    });
+    it('it should modify an entry with partial data given(title)', (done) => {
+      const modify = {
+        title: 'ready',
+      };
+      chai.request(app)
+        .patch(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.include({
+            title: modify.title,
+          });
+          expect(res.body.status).to.deep.equal(200);
+          expect(res.body.data.id).to.be.a('string');
+          expect(res.body.data.userid).to.be.a('string');
+          expect(res.body.data.slug).to.be.a('string');
+          expect(res.body.data.createdon).to.be.a('string');
+          expect(res.body.message).to.deep.equal('entry successfully edited');
+          expect(res.body.data.description).to.be.a('string');
+          done();
+        });
+    });
+    it('it should modify an entry with partial data given(description)', (done) => {
+      const modify = {
+        description: 'ohhh this is beatiful',
+      };
+      chai.request(app)
+        .patch(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.data).to.include({
+            description: modify.description,
+          });
+          expect(res.body.status).to.deep.equal(200);
+          expect(res.body.data.id).to.be.a('string');
+          expect(res.body.data.userid).to.be.a('string');
+          expect(res.body.data.slug).to.be.a('string');
+          expect(res.body.data.createdon).to.be.a('string');
+          expect(res.body.message).to.deep.equal('entry successfully edited');
+          expect(res.body.data.title).to.be.a('string');
+          done();
+        });
+    });
+    it('it should not modify an entry with not data given', (done) => {
+      const modify = {
+      };
+      chai.request(app)
+        .patch(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.not.have.property('data');
+          expect(res.body.message).to.be.a('string');
+          done();
+        });
+    });
+    it('it should not modify an entry with invalid request', (done) => {
+      const modify = {
+        title: 're',
+        description: 'ohhh this is beatif',
+      };
+      chai.request(app)
+        .patch(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.message).to.be.a('string');
+          expect(res.body.status).to.deep.equal(400);
+          done();
+        });
+    });
+    it('it should not modify an entry which does not exits', (done) => {
+      const modify = {
+        title: 'readyg',
+        description: 'ohhh this is beatif',
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1b9d6bcd-bbfd-4b2d-9b5d-ab8dfbbd4bed')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.message).to.equal('entry not found');
+          expect(res.body.status).to.deep.equal(404);
+          done();
+        });
+    });
+    it('it should not modify an entry a valid uuid', (done) => {
+      const modify = {
+        title: 'readyg',
+        description: 'ohhh this is beatif',
+      };
+      chai.request(app)
+        .patch('/api/v1/entries/1b9d')
+        .set('token', `Bearer ${token}`)
+        .send(modify)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.message).to.equal('the id given is not a valid UUID');
+          expect(res.body.status).to.deep.equal(400);
+          done();
+        });
+    });
     //     it('it should delete an entry', (done) => {
     //       chai.request(app)
     //         .delete('/api/v1/entries/1')
@@ -354,7 +379,7 @@ describe('entry endpoints testing', () => {
     //         .set('token', `Bearer ${token}`)
     //         .end((err, res) => {
     //           expect(res.status).to.equal(404);
-    //           expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
+    //      expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
     //           done();
     //         });
     //     });
