@@ -310,6 +310,23 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('it should get an entry', (done) => {
+      chai.request(app)
+        .get(`/api/v1/entries/${id}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.status).to.deep.equal(200);
+          expect(res.body.data).be.an('object');
+          expect(res.body.data.id).to.be.a('string');
+          expect(res.body.data.title).to.be.a('string');
+          expect(res.body.data.slug).to.be.a('string');
+          expect(res.body.data.description).to.be.a('string');
+          expect(res.body.data.createdon).to.be.a('string');
+          expect(res.body.data.userid).to.be.a('string');
+          done();
+        });
+    });
     it('it should delete an entry', (done) => {
       chai.request(app)
         .delete(`/api/v1/entries/${id}`)
@@ -321,33 +338,6 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    //     it('it should get an entry', (done) => {
-    //       chai.request(app)
-    //         .get('/api/v1/entries/2')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           done();
-    //         });
-    //     });
-    //     it('it should not get an entry which does not exist', (done) => {
-    //       chai.request(app)
-    //         .get('/api/v1/entries/8000')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(404);
-    //           done();
-    //         });
-    //     });
-    //     it('it should not get an entry with a non-numeric id', (done) => {
-    //       chai.request(app)
-    //         .get('/api/v1/entries/dd34s')
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(400);
-    //           done();
-    //         });
-    //     });
     //     it('should get an entry when a title slug is given', (done) => {
     //       chai
     //         .request(app)

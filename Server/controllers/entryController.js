@@ -87,10 +87,16 @@ export default class EntryController {
     }
   }
 
-  static getAnEntry(req, res) {
-    const { entry } = req;
-    send.successful(200, null, entry);
-    return send.send(res);
+  static async getAnEntry(req, res) {
+    try {
+      const query = await DbMethods.select('*', 'entries', `id='${req.params.id}' AND userid='${req.userid}'`);
+      const entry = query['0'];
+      send.successful(200, null, entry);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
+    }
   }
 
   static getBySlug(req, res) {
