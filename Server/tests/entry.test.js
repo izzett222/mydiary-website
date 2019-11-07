@@ -10,7 +10,7 @@ dotenv.config();
 describe('entry endpoints testing', () => {
   describe('when the user has signed up and given a valid token', () => {
     let token;
-    // let slug;
+    let slug;
     let id;
     before((done) => {
       const loggedUser = {
@@ -75,7 +75,7 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .send(entry)
         .end((err, res) => {
-          // slug = res.body.data.slug;
+          slug = res.body.data.slug;
           expect(res.status).to.equal(201);
           expect(res.body.status).to.equal(201);
           expect(res.body.data).to.be.an('object');
@@ -327,6 +327,22 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
+    it('should get an entry when a title slug is given', (done) => {
+      chai
+        .request(app)
+        .get(`/api/v1/entries/slug/${slug}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.have.property('data');
+          expect(res.body.data).to.have.property('title');
+          expect(res.body.data).to.have.property('description');
+          expect(res.body.data).to.have.property('createdon');
+          expect(res.body.data).to.have.property('slug');
+          expect(res.body.data.slug).to.equal(slug);
+          done();
+        });
+    });
     it('it should delete an entry', (done) => {
       chai.request(app)
         .delete(`/api/v1/entries/${id}`)
@@ -338,34 +354,18 @@ describe('entry endpoints testing', () => {
           done();
         });
     });
-    //     it('should get an entry when a title slug is given', (done) => {
-    //       chai
-    //         .request(app)
-    //         .get(`/api/v1/entries/slug/${slug}`)
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(200);
-    //           expect(res.body).to.have.property('data');
-    //           expect(res.body.data).to.have.property('title');
-    //           expect(res.body.data).to.have.property('description');
-    //           expect(res.body.data).to.have.property('createdOn');
-    //           expect(res.body.data).to.have.property('slug');
-    //           expect(res.body.data.slug).to.equal(slug);
-    //           done();
-    //         });
-    //     });
-    //     it('should get an entry when a title slug is given', (done) => {
-    //       const noSlug = 'day-dfewdes';
-    //       chai
-    //         .request(app)
-    //         .get(`/api/v1/entries/slug/${noSlug}`)
-    //         .set('token', `Bearer ${token}`)
-    //         .end((err, res) => {
-    //           expect(res.status).to.equal(404);
-    //      expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
-    //           done();
-    //         });
-    //     });
+    it('should get an entry when a title slug is given', (done) => {
+      const noSlug = 'day-dfewdes';
+      chai
+        .request(app)
+        .get(`/api/v1/entries/slug/${noSlug}`)
+        .set('token', `Bearer ${token}`)
+        .end((err, res) => {
+          expect(res.status).to.equal(404);
+          expect(res.body.message).to.deep.equal(`entry with slug equal to ${noSlug}. not found`);
+          done();
+        });
+    });
   });
   describe('when the user is not signup or given a wrong token', () => {
     it('should not allow user without token to access entry routes', (done) => {
