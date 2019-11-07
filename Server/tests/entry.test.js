@@ -267,8 +267,13 @@ describe('entry endpoints testing', () => {
         .set('token', `Bearer ${token}`)
         .end((err, res) => {
           expect(res.status).to.equal(200);
-          expect(res.body.data).to.be.an('array');
-          expect(res.body.data.length).to.equal(2);
+          expect(res.body.data).to.be.an('object');
+          expect(res.body.data.page).to.deep.equal(1);
+          expect(res.body.data.numberOfPages).to.deep.equal(1);
+          expect(res.body.data.entriesOnPage).to.deep.equal(2);
+          expect(res.body.data.totalEntries).to.deep.equal(2);
+          expect(res.body.data.entries).to.be.an('array');
+          expect(res.body.data.entries.length).to.deep.equal(2);
           done();
         });
     });
