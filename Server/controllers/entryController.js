@@ -25,16 +25,26 @@ export default class EntryController {
     }
   }
 
-  static updateEntry(req, res) {
-    const { entry } = req;
-    if (req.body.title) {
-      entry.title = req.body.title.trim();
+  static async updateEntry(req, res) {
+    try {
+      let entry;
+      if (req.body.title) {
+        // entry.title = req.body.title.trim();
+        entry = await DbMethods.update('entries', `title= '${req.body.title}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
+      }
+      if (req.body.description) {
+        entry = await DbMethods.update('entries', `description='${req.body.description}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
+      }
+      if (!entry) {
+        send.error(404, new Error('entry not found'));
+        return send.send(res);
+      }
+      send.successful(200, 'entry successfully edited', entry);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
     }
-    if (req.body.description) {
-      entry.description = req.body.description.trim();
-    }
-    send.successful(200, 'entry successfully edited', entry);
-    return send.send(res);
   }
 
   static deleteEntry(req, res) {
