@@ -60,20 +60,19 @@ export default class EntryController {
         send.error(404, new Error('your diary is empty, no entries found'));
         return send.send(res);
       }
-      if (p) {
-        if (p * 1 < 1 || Number.isNaN(p * 1)) {
-          send.error(400, new Error('a page should be a number and should be greater than 0'));
-          return send.send(res);
-        }
-        const result = paginate(userEntries, p * 1);
-        if (result.entries.length < 1) {
-          send.error(404, new Error(`page ${p} not found`));
-          return send.send(res);
-        }
-        send.successful(200, `page ${p}`, result);
+      const num = p || '1';
+      const regex = /^\d+$/;
+      const truth = regex.test(num);
+      if (!truth) {
+        send.error(400, new Error('a page should be a number and should be greater than 0'));
         return send.send(res);
       }
-      send.successful(200, null, userEntries);
+      const result = paginate(userEntries, num * 1);
+      if (result.entries.length < 1) {
+        send.error(404, new Error(`page ${p} not found`));
+        return send.send(res);
+      }
+      send.successful(200, `page ${num}`, result);
       return send.send(res);
     } catch (error) {
       send.successful(500, error);
