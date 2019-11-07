@@ -1,7 +1,6 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import 'chai/register-should';
-import { doesNotReject } from 'assert';
 import app from '../app';
 
 const { expect } = chai;

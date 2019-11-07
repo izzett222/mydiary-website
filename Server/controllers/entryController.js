@@ -3,6 +3,7 @@ import send from '../helpers/send';
 import slugStr from '../helpers/slug';
 import entries from '../data/entryData';
 import DbMethods from '../helpers/dbMethods';
+import paginate from '../helpers/pagination';
 
 export default class EntryController {
   static async createEntry(req, res) {
@@ -43,14 +44,33 @@ export default class EntryController {
     return send.send(res);
   }
 
-  static getAllEntry(req, res) {
-    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
-    if (userEntries.length < 1) {
-      send.error(404, new Error('your diary is empty, no entries found'));
+  static async getAllEntry(req, res) {
+    const { p } = req.query;
+    try {
+      const userEntries = await DbMethods.select('*', 'entries', `userid='${req.userid}'`);
+      if (userEntries.length < 1) {
+        send.error(404, new Error('your diary is empty, no entries found'));
+        return send.send(res);
+      }
+      if (p) {
+        if (p * 1 < 1 || Number.isNaN(p * 1)) {
+          send.error(400, new Error('a page should be a number and should be greater than 0'));
+          return send.send(res);
+        }
+        const result = paginate(userEntries, p * 1);
+        if (result.entries.length < 1) {
+          send.error(404, new Error(`page ${p} not found`));
+          return send.send(res);
+        }
+        send.successful(200, `page ${p}`, result);
+        return send.send(res);
+      }
+      send.successful(200, null, userEntries);
+      return send.send(res);
+    } catch (error) {
+      send.successful(500, error);
       return send.send(res);
     }
-    send.successful(200, null, userEntries);
-    return send.send(res);
   }
 
   static getAnEntry(req, res) {
