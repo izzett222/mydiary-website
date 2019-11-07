@@ -1,7 +1,6 @@
 import uuidv4 from 'uuid/v4';
 import send from '../helpers/send';
 import slugStr from '../helpers/slug';
-import entries from '../data/entryData';
 import DbMethods from '../helpers/dbMethods';
 import paginate from '../helpers/pagination';
 
@@ -29,16 +28,11 @@ export default class EntryController {
     try {
       let entry;
       if (req.body.title) {
-        // entry.title = req.body.title.trim();
         entry = await DbMethods.update('entries', `title= '${req.body.title}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
       }
       if (req.body.description) {
         entry = await DbMethods.update('entries', `description='${req.body.description}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
       }
-      // if (!entry) {
-      //   send.error(404, new Error('entry not found'));
-      //   return send.send(res);
-      // }
       send.successful(200, 'entry successfully edited', entry);
       return send.send(res);
     } catch (error) {
