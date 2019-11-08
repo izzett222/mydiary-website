@@ -188,7 +188,7 @@ form div {
 	margin-top: 60px;
 	color: #555;
 }
-form p {
+.description {
 	margin-top: 30px;
 	line-height: 145%;
 	font-size: 120%;
@@ -292,6 +292,8 @@ label {
  	background: #FC491A;
  	border: none;
  	box-shadow: none;
+  margin-top: 1px;
+  padding: 6px 37px 6px 37px;
  }
 .popup button:first-of-type:hover {
  	cursor: pointer;

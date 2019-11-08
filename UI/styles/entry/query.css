@@ -42,7 +42,7 @@
 	.wrapper a{
 		left: 90%;
 	}
-	form p {
+	.description {
 		/*height: 350px;*/
 		overflow: scroll;
 	}
@@ -52,10 +52,19 @@
 	.title h1 {
 		font-size: 26px;
 	}
-	form p {
+	.description {
 		/*height: 350px;*/
 		overflow: scroll;
 	}
+	.popup {
+		width: 300px;
+		left: 18%;
+	}
+	.popup button:first-of-type {
+ 		margin-left: 40px;
+ 		margin-top: 1px;
+  	padding: 7px 35px 9px 35px;
+ }
 }
 
 /* medium  phones to big phone*/
@@ -82,10 +91,15 @@
 		top: 4%;
 		left: 87%;
 	}
-	form p {
-		/*height: 350px;*/
-		overflow: scroll;
+		.popup {
+		width: 300px;
+		left: 14%;
 	}
+	.popup button:first-of-type {
+ 		margin-left: 40px;
+ 		margin-top: 1px;
+  	padding: 7px 35px 9px 35px;
+ }
 }
 /* really small phones*/
 @media only screen and (max-width:360px) {
@@ -96,6 +110,15 @@
 		padding-left: 27px;
 		padding-right: 12px;
 	}
+		.popup {
+		width: 220px;
+		left: 9%;
+	}
+	.popup button:first-of-type {
+ 		margin-left: 40px;
+ 		margin-top: 1px;
+  	padding: 7px 20px 9px 20px;
+ }
 }
 @media only screen and (max-width:250px) {
 	.title label {
@@ -112,4 +135,7 @@
 		padding-left: 4px;
 		padding-right: 4px;
 	}
+	.popup button:last-of-type {
+ 	padding: 0 3px;
+ }
 }
