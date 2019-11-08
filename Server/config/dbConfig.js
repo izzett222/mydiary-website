@@ -2,7 +2,7 @@ import { Pool } from 'pg';
 import dotenv from 'dotenv';
 
 dotenv.config();
-const connectionString = process.env.DATABASE_STRING;
+const connectionString = process.env.DATABASE_URL;
 const pool = new Pool({ connectionString });
-pool.on('connect', () => console.log('server connected'));
+pool.on('connect', () => process.stdout.write('server connected'));
 export default pool;

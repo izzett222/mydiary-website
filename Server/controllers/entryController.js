@@ -1,71 +1,111 @@
+import uuidv4 from 'uuid/v4';
 import send from '../helpers/send';
 import slugStr from '../helpers/slug';
-import entries from '../data/entryData';
-import EntryValidator from '../helpers/entryValidators';
+import DbMethods from '../helpers/dbMethods';
+import paginate from '../helpers/pagination';
 
 export default class EntryController {
-  static createEntry(req, res) {
-    const slug = slugStr(req.body.title.trim());
-    const entry = {
-      id: 1,
-      createdOn: new Date().toDateString(),
-      slug,
-      title: req.body.title.trim(),
-      description: req.body.description.trim(),
-      user_id: req.user.user_id
-    };
-    if (entries.length > 0) {
-      entry.id = entries[entries.length - 1].id + 1;
+  static async createEntry(req, res) {
+    let { title } = req.body;
+    const { description } = req.body;
+    if (!title) {
+      title = 'untitled';
     }
-    entries.push(entry);
-    send.successful(201, 'entry successfully created', entry);
-    return send.send(res);
-  }
-
-  static updateEntry(req, res) {
-    const { entry } = req;
-    if (req.body.title) {
-      entry.title = req.body.title.trim();
-    }
-    if (req.body.description) {
-      entry.description = req.body.description.trim();
-    }
-    send.successful(200, 'entry successfully edited', entry);
-    return send.send(res);
-  }
-
-  static deleteEntry(req, res) {
-    const { entry } = req;
-    entries.splice(entries.indexOf(entry), 1);
-    send.successful(204, 'entry successful deleted', null);
-    return send.send(res);
-  }
-
-  static getAllEntry(req, res) {
-    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
-    if (userEntries.length < 1) {
-      send.error(404, new Error('your diary is empty, no entries found'));
+    const { userid } = req;
+    const slug = slugStr(title.trim());
+    const id = uuidv4();
+    try {
+      const entry = await DbMethods.insert('entries', 'id, slug, title, description, userid', '$1, $2, $3, $4, $5', [id, slug, title.trim(), description.trim(), userid], '*');
+      send.successful(201, 'entry successfully created', entry);
+      return send.send(res);
+    } catch (err) {
+      send.error(500, err);
       return send.send(res);
     }
-    send.successful(200, null, userEntries);
-    return send.send(res);
   }
 
-  static getAnEntry(req, res) {
-    const { entry } = req;
-    send.successful(200, null, entry);
-    return send.send(res);
-  }
-
-  static getBySlug(req, res) {
-    const { slug } = req.params;
-    const userEntries = entries.filter((el) => el.user_id === req.user.user_id);
-    const entry = userEntries.find((el) => el.slug === slug);
-    if (!entry) {
-      send.error(404, new Error(`entry with slug equal to ${slug}. not found`));
+  static async updateEntry(req, res) {
+    try {
+      let entry;
+      if (req.body.title) {
+        entry = await DbMethods.update('entries', `title= '${req.body.title}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
+      }
+      if (req.body.description) {
+        entry = await DbMethods.update('entries', `description='${req.body.description}'`, `id='${req.params.id}' AND userid='${req.userid}'`, '*');
+      }
+      send.successful(200, 'entry successfully edited', entry);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
       return send.send(res);
     }
-    send.successful(200, null, entry);
-    send.send(res);
+  }
+
+  static async deleteEntry(req, res) {
+    try {
+      await DbMethods.delete('entries', `id='${req.params.id}' AND userid='${req.userid}'`);
+      send.successful(200, 'entry successful deleted', null);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
+    }
+  }
+
+  static async getAllEntry(req, res) {
+    const { p } = req.query;
+    try {
+      const userEntries = await DbMethods.select('*', 'entries', `userid='${req.userid}'`);
+      if (userEntries.length < 1) {
+        send.error(404, new Error('your diary is empty, no entries found'));
+        return send.send(res);
+      }
+      const num = p || '1';
+      const regex = /^\d+$/;
+      const truth = regex.test(num);
+      if (!truth) {
+        send.error(400, new Error('a page should be a number and should be greater than 0'));
+        return send.send(res);
+      }
+      const result = paginate(userEntries, num * 1);
+      if (result.entries.length < 1) {
+        send.error(404, new Error(`page ${p} not found`));
+        return send.send(res);
+      }
+      send.successful(200, `page ${num}`, result);
+      return send.send(res);
+    } catch (error) {
+      send.successful(500, error);
+      return send.send(res);
+    }
+  }
+
+  static async getAnEntry(req, res) {
+    try {
+      const query = await DbMethods.select('*', 'entries', `id='${req.params.id}' AND userid='${req.userid}'`);
+      const entry = query['0'];
+      send.successful(200, null, entry);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
+    }
+  }
+
+  static async getBySlug(req, res) {
+    try {
+      const { slug } = req.params;
+      const query = await DbMethods.select('*', 'entries', `slug='${slug}' AND userid='${req.userid}'`);
+      const entry = query['0'];
+      if (!entry) {
+        send.error(404, new Error(`entry with slug equal to ${slug}. not found`));
+        return send.send(res);
+      }
+      send.successful(200, null, entry);
+      return send.send(res);
+    } catch (error) {
+      send.error(500, error);
+      return send.send(res);
+    }
   }
 }

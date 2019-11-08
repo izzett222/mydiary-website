@@ -8,4 +8,3 @@ export class User {
     this.password = password.trim();
   }
 }
-// export default users;

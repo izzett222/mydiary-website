@@ -10,7 +10,7 @@ export default class userValidatorMid {
       send.error(400, new Error(newMessage));
       return send.send(res);
     }
-    next();
+    return next();
   }
 
   static update(req, res, next) {
@@ -20,6 +20,6 @@ export default class userValidatorMid {
       send.error(400, new Error(newMessage));
       return send.send(res);
     }
-    next();
+    return next();
   }
 }
