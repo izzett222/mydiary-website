@@ -58,7 +58,15 @@
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr;
         grid-row-gap: 20px;
-    }
+  }
+  .popup p {
+    font-size: 95%;
+    margin-bottom: 35px;
+	}
+ 	.popup {
+    top: 45%;
+    left: 22%;
+	}
 
 }
 /*device from 378px to 480px*/
@@ -94,6 +102,14 @@
 		top: 0;
 		margin-bottom: 20px;
 	}
+	.popup {
+    top: 45%;
+    left: 5%;
+    width: 350px;
+	}
+	.popup button:first-of-type {
+    padding: 9px 25px 10px 25px;
+ 	}
 }
 @media only screen and (max-width:378px) {
 	.entry {
@@ -110,10 +126,18 @@
 	.entry .summary {
 		grid-area: summary;
 	}
-	.entry a {
+	.entry .icons {
 		grid-area: link;
 		margin: 0 auto;
 	}
+	.popup {
+    top: 45%;
+    left: 5%;
+    width: 270px;
+	}
+	.popup button:first-of-type {
+    padding: 9px 25px 10px 25px;
+ 	}
 }
 @media only screen and (max-width: 535px) {
 	footer .footer-links ul li {
